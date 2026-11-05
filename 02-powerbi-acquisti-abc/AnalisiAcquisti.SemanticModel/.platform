@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "AnalisiAcquisti"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0f883040-72cb-55f0-8d2f-7c3ba50435e2"
+  }
+}

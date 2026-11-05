@@ -1,0 +1,17 @@
+table 'Giorni DSO'
+	lineageTag: cd8b83d5-1d79-5726-87b6-3c5341bc0696
+
+	column Giorni
+		dataType: int64
+		formatString: 0
+		lineageTag: 96c099fa-06e4-5678-8846-9e46ce70a49c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Giorni]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Giorni DSO' = calculated
+		mode: import
+		source =
+				DATATABLE ( "Giorni", INTEGER, { { 90 }, { 180 }, { 365 } } )

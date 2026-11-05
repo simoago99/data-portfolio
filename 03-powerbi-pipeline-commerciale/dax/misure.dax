@@ -1,0 +1,171 @@
+-- Misure DAX del progetto "Pipeline commerciale: offerte, ordini, fatturato e budget"
+-- Generato dal modello semantico: PipelineCommerciale.SemanticModel/definition/tables/_Misure.tmdl
+
+
+-- ==================== 0. Base ====================
+
+-- Ultima data di fatturazione presente nei dati.
+[Data Riferimento] =
+    CALCULATE ( MAX ( Fatture[Data Fattura] ), REMOVEFILTERS () )
+
+
+-- ==================== 1. Pipeline ====================
+
+-- Trattative aperte nel periodo (per data di apertura).
+[Nr. Trattative] =
+    COUNTROWS ( Trattative )
+
+[Valore Offerto] =
+    SUM ( Trattative[Valore] )
+
+-- Trattative vinte, datate alla chiusura.
+[Valore Vinto] =
+    CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] = "Vinta", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+
+[Valore Perso] =
+    CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] = "Persa", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+
+[Nr. Vinte] =
+    CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] = "Vinta", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+
+[Nr. Perse] =
+    CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] = "Persa", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+
+-- Valore vinto sul valore delle trattative chiuse (vinte + perse).
+[Win Rate % (valore)] =
+    DIVIDE ( [Valore Vinto], [Valore Vinto] + [Valore Perso] )
+
+[Win Rate % (numero)] =
+    DIVIDE ( [Nr. Vinte], [Nr. Vinte] + [Nr. Perse] )
+
+-- Valore delle trattative ancora aperte, indipendentemente dal periodo selezionato.
+[Pipeline Aperta] =
+    CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] IN { "Aperta", "In negoziazione" }, REMOVEFILTERS ( Calendario ) )
+
+[Nr. Trattative Aperte] =
+    CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] IN { "Aperta", "In negoziazione" }, REMOVEFILTERS ( Calendario ) )
+
+-- Durata media, in giorni, delle trattative vinte (dall'apertura alla chiusura).
+[Giorni Medi di Chiusura] =
+    CALCULATE (
+        AVERAGEX ( Trattative, DATEDIFF ( Trattative[Data Apertura], Trattative[Data Chiusura], DAY ) ),
+        Trattative[Stato] = "Vinta",
+        USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] )
+    )
+
+
+-- ==================== 2. Ordinato e fatturato ====================
+
+[Ordinato] =
+    SUM ( Ordini[Valore Ordine] )
+
+[Nr. Ordini] =
+    COUNTROWS ( Ordini )
+
+[Valore Medio Ordine] =
+    DIVIDE ( [Ordinato], [Nr. Ordini] )
+
+[Fatturato] =
+    SUM ( Fatture[Importo] )
+
+-- Da inizio anno alla fine del periodo (mai oltre la data di riferimento).
+[Fatturato YTD] =
+    VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), 0 )
+    RETURN
+        CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+
+[Fatturato YTD AP] =
+    VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), -12 )
+    RETURN
+        CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+
+[Var % Fatturato YTD] =
+    DIVIDE ( [Fatturato YTD] - [Fatturato YTD AP], [Fatturato YTD AP] )
+
+-- Ordinato non ancora fatturato alla fine del periodo: ordini cumulati meno fatture cumulate.
+[Backlog] =
+    VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+    VAR OrdinatoCumulato = CALCULATE ( [Ordinato], REMOVEFILTERS ( Calendario ), Calendario[Data] <= Fine )
+    VAR FatturatoCumulato = CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Data] <= Fine )
+    RETURN
+        OrdinatoCumulato - FatturatoCumulato
+
+[Backlog One-off] =
+    CALCULATE ( [Backlog], 'Linee Prodotto'[Tipo Ricavo] = "One-off" )
+
+[Backlog Ricorrente] =
+    CALCULATE ( [Backlog], 'Linee Prodotto'[Tipo Ricavo] = "Ricorrente" )
+
+[% Ricorrente su Fatturato] =
+    DIVIDE ( CALCULATE ( [Fatturato], 'Linee Prodotto'[Tipo Ricavo] = "Ricorrente" ), [Fatturato] )
+
+
+-- ==================== 3. Budget e forecast ====================
+
+[Budget] =
+    SUM ( Budget[Budget] )
+
+[Budget YTD] =
+    VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), 0 )
+    RETURN
+        CALCULATE ( [Budget], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+
+[% Raggiungimento Budget YTD] =
+    DIVIDE ( [Fatturato YTD], [Budget YTD] )
+
+[Budget Anno] =
+    VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+    RETURN
+        CALCULATE ( [Budget], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno )
+
+-- Stima semplice: fatturato da inizio anno + ordinato ancora da fatturare.
+[Forecast Fine Anno] =
+    [Fatturato YTD] + [Backlog]
+
+[Forecast vs Budget %] =
+    DIVIDE ( [Forecast Fine Anno], [Budget Anno] )
+
+
+-- ==================== 4. Clienti ====================
+
+[Clienti Fatturati] =
+    DISTINCTCOUNT ( Fatture[Codice Cliente] )
+
+-- Clienti con prima fattura nell'anno analizzato.
+[Nuovi Clienti] =
+    VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+    VAR Clienti =
+        ADDCOLUMNS (
+            VALUES ( Clienti[Codice Cliente] ),
+            "@Prima", CALCULATE ( MIN ( Fatture[Data Fattura] ), REMOVEFILTERS ( Calendario ) )
+        )
+    RETURN
+        COUNTROWS ( FILTER ( Clienti, YEAR ( [@Prima] ) = Anno ) )
+
+-- Clienti fatturati l'anno prima e non nell'anno analizzato.
+[Clienti Persi] =
+    VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+    VAR Clienti =
+        ADDCOLUMNS (
+            VALUES ( Clienti[Codice Cliente] ),
+            "@AP", CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno - 1 ),
+            "@Anno", CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno )
+        )
+    RETURN
+        COUNTROWS ( FILTER ( Clienti, [@AP] > 0 && ISBLANK ( [@Anno] ) ) )
+
+
+-- ==================== 5. Selettore misura ====================
+
+-- Mostra Offerto, Ordinato o Fatturato in base alla scelta nello slicer 'Scelta Misura'.
+[Valore Selezionato] =
+    SWITCH (
+        SELECTEDVALUE ( 'Scelta Misura'[Misura], "Fatturato" ),
+        "Offerto", [Valore Offerto],
+        "Ordinato", [Ordinato],
+        [Fatturato]
+    )
+
+[Titolo Grafico] =
+    SELECTEDVALUE ( 'Scelta Misura'[Misura], "Fatturato" ) & " per mese"
+

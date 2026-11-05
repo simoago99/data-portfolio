@@ -1,0 +1,106 @@
+table Trattative
+	lineageTag: 0ccd8460-5ada-5fe7-97c8-9f89ec66b719
+
+	column 'ID Trattativa'
+		dataType: string
+		lineageTag: a719fcae-9b10-52ee-9d43-a5690bcbba08
+		summarizeBy: none
+		sourceColumn: ID Trattativa
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Apertura'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3bbc713f-7d65-5daa-a93c-89cafd188d5b
+		summarizeBy: none
+		sourceColumn: Data Apertura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Chiusura'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e7f4a9a3-b00b-598c-a857-9ea53b8fe2d1
+		summarizeBy: none
+		sourceColumn: Data Chiusura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Stato
+		dataType: string
+		lineageTag: 05305f9f-3767-5170-89d8-27ea7f359e23
+		summarizeBy: none
+		sourceColumn: Stato
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Motivo Perdita'
+		dataType: string
+		lineageTag: 94a7c697-82d1-5720-8502-32060eda421b
+		summarizeBy: none
+		sourceColumn: Motivo Perdita
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Cliente'
+		dataType: string
+		isHidden
+		lineageTag: c319d5c1-7dcc-5b35-8bd7-41afefef327c
+		summarizeBy: none
+		sourceColumn: Codice Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Commerciale'
+		dataType: string
+		isHidden
+		lineageTag: b4b72e29-a720-5800-a4ae-54cd040c0e6d
+		summarizeBy: none
+		sourceColumn: Codice Commerciale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linea Prodotto'
+		dataType: string
+		isHidden
+		lineageTag: bc6fc300-2ebe-594d-a076-be2f705f021d
+		summarizeBy: none
+		sourceColumn: Linea Prodotto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Ricavo'
+		dataType: string
+		isHidden
+		lineageTag: 109fc1f5-d138-5f8f-9e43-83326a9548f1
+		summarizeBy: none
+		sourceColumn: Tipo Ricavo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valore
+		dataType: decimal
+		formatString: € #,0
+		lineageTag: 47888e7f-b1d5-5606-9f74-643c6db402d1
+		summarizeBy: sum
+		sourceColumn: Valore
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Trattative = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "trattative.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"ID Trattativa", type text}, {"Data Apertura", type date}, {"Data Chiusura", type date}, {"Stato", type text}, {"Motivo Perdita", type text}, {"Codice Cliente", type text}, {"Codice Commerciale", type text}, {"Linea Prodotto", type text}, {"Tipo Ricavo", type text}, {"Valore", Currency.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

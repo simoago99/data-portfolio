@@ -1,0 +1,116 @@
+table Produzione
+	lineageTag: 7c6e4681-f457-52cf-9200-b92357579b8a
+
+	column Data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ba4addb6-5d71-549d-8712-4f8e00100410
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ordine Produzione'
+		dataType: string
+		lineageTag: a3b7240c-40fd-53b1-bb22-06ac2e831c0b
+		summarizeBy: none
+		sourceColumn: Ordine Produzione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Linea
+		dataType: string
+		lineageTag: 9c1ece56-c40b-5268-b5cc-bdc0a121b059
+		summarizeBy: none
+		sourceColumn: Linea
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turno
+		dataType: string
+		lineageTag: b772fa8a-d921-5741-b97e-41aaf02e6cc8
+		summarizeBy: none
+		sourceColumn: Turno
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Articolo'
+		dataType: string
+		isHidden
+		lineageTag: c3a8e52d-4791-5842-a2d4-b875a488d93f
+		summarizeBy: none
+		sourceColumn: Codice Articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ore Lavorate'
+		dataType: double
+		lineageTag: 5e95c44f-8436-567d-bc2a-8a33bd340977
+		summarizeBy: sum
+		sourceColumn: Ore Lavorate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Consumo Kg'
+		dataType: double
+		lineageTag: 163a80ec-9433-515c-bcc9-8bd1f705444b
+		summarizeBy: sum
+		sourceColumn: Consumo Kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Produzione Kg'
+		dataType: double
+		lineageTag: 2a199fbd-cc3e-5ae9-82d3-a8318e81dad6
+		summarizeBy: sum
+		sourceColumn: Produzione Kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scarto Kg'
+		dataType: double
+		lineageTag: 5e9a8b76-9212-5a32-9a36-1d52e549492e
+		summarizeBy: sum
+		sourceColumn: Scarto Kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rifili Kg'
+		dataType: double
+		lineageTag: ee127f10-80c2-56da-952e-2ca53f73b5b1
+		summarizeBy: sum
+		sourceColumn: Rifili Kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metri Quadri'
+		dataType: double
+		lineageTag: 0ae07e08-b751-5101-a0a1-c239be6ece54
+		summarizeBy: sum
+		sourceColumn: Metri Quadri
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bobine OK'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01071a8d-c628-54f1-b7e4-80b30086f0dd
+		summarizeBy: sum
+		sourceColumn: Bobine OK
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Produzione = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "produzione.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Data", type date}, {"Ordine Produzione", type text}, {"Linea", type text}, {"Turno", type text}, {"Codice Articolo", type text}, {"Ore Lavorate", type number}, {"Consumo Kg", type number}, {"Produzione Kg", type number}, {"Scarto Kg", type number}, {"Rifili Kg", type number}, {"Metri Quadri", type number}, {"Bobine OK", Int64.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

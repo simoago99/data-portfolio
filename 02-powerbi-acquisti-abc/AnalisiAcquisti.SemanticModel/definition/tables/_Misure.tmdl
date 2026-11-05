@@ -1,0 +1,255 @@
+table _Misure
+	lineageTag: a5e7b0a3-761d-5aa8-a378-873969499f97
+
+	/// Ultima data di carico presente nei dati.
+	measure 'Data Riferimento' = CALCULATE ( MAX ( Acquisti[Data Documento] ), REMOVEFILTERS () )
+		formatString: Short Date
+		displayFolder: 0. Base
+		lineageTag: 0ba49d78-7982-5f3d-874f-b4f12937e801
+
+	measure 'Costo Acquisto' = SUM ( Acquisti[Costo Totale] )
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: b272ee00-522f-5e75-b19f-3cda71f2d485
+
+	measure 'Quantità Acquistata' = SUM ( Acquisti[Quantita] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 66606a62-dd53-5a2f-baed-be35eba4701d
+
+	/// Valore dei carichi al listino di riferimento del fornitore.
+	measure 'Valore a Listino' = SUM ( Acquisti[Listino Totale] )
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: 072d7e7a-cecb-5f46-8f3d-7fd41cffedc4
+
+	/// Positivo = abbiamo pagato meno del listino.
+	measure 'Risparmio vs Listino' = [Valore a Listino] - [Costo Acquisto]
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: 95bde940-2903-567a-99ef-29a723fb0899
+
+	measure 'Risparmio % vs Listino' = DIVIDE ( [Risparmio vs Listino], [Valore a Listino] )
+		formatString: 0.0%
+		displayFolder: 0. Base
+		lineageTag: c04862df-f167-5ff9-b4cb-c23a78240cc3
+
+	measure 'Prezzo Medio di Carico' = DIVIDE ( [Costo Acquisto], [Quantità Acquistata] )
+		formatString: #,0.00
+		displayFolder: 0. Base
+		lineageTag: 2a81002b-a9c4-5e42-b0ed-9cdae02d3a71
+
+	measure 'Numero Articoli' = DISTINCTCOUNT ( Acquisti[Codice Articolo] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 6bbe055e-f0ce-52f6-83b9-b7ca3a70ee05
+
+	measure 'Numero Fornitori' = DISTINCTCOUNT ( Acquisti[Codice Fornitore] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 1d1f1094-dc48-5c39-a144-c2bcc16338e8
+
+	/// I carichi da fornitore si contano per numero documento; i carichi interni (senza numero)
+	/// si contano come combinazione unica di data e fornitore.
+	measure 'Numero Documenti' =
+			VAR DocumentiFornitore =
+				CALCULATE ( DISTINCTCOUNT ( Acquisti[Numero Documento] ), NOT ISBLANK ( Acquisti[Numero Documento] ) )
+			VAR CarichiInterni =
+				COUNTROWS (
+					SUMMARIZE (
+						FILTER ( Acquisti, ISBLANK ( Acquisti[Numero Documento] ) ),
+						Acquisti[Data Documento],
+						Acquisti[Codice Fornitore]
+					)
+				)
+			RETURN
+				DocumentiFornitore + CarichiInterni
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: b5f56684-0bbf-522a-a36d-1a7a0417a1dc
+
+	/// Da inizio anno alla data di riferimento (o alla fine del periodo filtrato).
+	measure 'Costo YTD' =
+			VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+			VAR FineCalcolo = EDATE ( Fine, 0 )
+			RETURN
+				CALCULATE (
+					[Costo Acquisto],
+					DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( FineCalcolo ), 1, 1 ), FineCalcolo )
+				)
+		formatString: € #,0
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 71d2d14c-b3d7-5844-9747-567385ff9c89
+
+	measure 'Costo YTD AP' =
+			VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+			VAR FineCalcolo = EDATE ( Fine, -12 )
+			RETURN
+				CALCULATE (
+					[Costo Acquisto],
+					DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( FineCalcolo ), 1, 1 ), FineCalcolo )
+				)
+		formatString: € #,0
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 854f025b-4d6f-5530-8a66-1660fec4b03d
+
+	measure 'Var % Costo YTD' = DIVIDE ( [Costo YTD] - [Costo YTD AP], [Costo YTD AP] )
+		formatString: 0.0%
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: ec15a413-0caa-5552-a53a-b4147f0f8ced
+
+	measure 'Quantità YTD' =
+			VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+			VAR FineCalcolo = EDATE ( Fine, 0 )
+			RETURN
+				CALCULATE (
+					[Quantità Acquistata],
+					DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( FineCalcolo ), 1, 1 ), FineCalcolo )
+				)
+		formatString: #,0
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 1f440588-b507-58b2-9e58-0c7783056d18
+
+	measure 'Quantità YTD AP' =
+			VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+			VAR FineCalcolo = EDATE ( Fine, -12 )
+			RETURN
+				CALCULATE (
+					[Quantità Acquistata],
+					DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( FineCalcolo ), 1, 1 ), FineCalcolo )
+				)
+		formatString: #,0
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 2a6c00d4-b7ed-5638-8e9e-952213ebf99d
+
+	measure 'Prezzo Medio YTD' = DIVIDE ( [Costo YTD], [Quantità YTD] )
+		formatString: #,0.00
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 2f9a9b82-0f7c-5ade-bdcd-b4dc71e70ac2
+
+	measure 'Prezzo Medio YTD AP' = DIVIDE ( [Costo YTD AP], [Quantità YTD AP] )
+		formatString: #,0.00
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 38b06e22-4219-5013-a26e-40b2b30becfa
+
+	/// Inflazione dei prezzi d'acquisto: variazione del costo unitario medio rispetto all'anno precedente.
+	measure 'Var % Prezzo Medio' = DIVIDE ( [Prezzo Medio YTD] - [Prezzo Medio YTD AP], [Prezzo Medio YTD AP] )
+		formatString: 0.0%
+		displayFolder: 1. Confronto anno precedente
+		lineageTag: 63f82d0f-0789-5fdb-833e-ca7f0a45ed3b
+
+	measure 'Quota Cumulata Articolo %' =
+			VAR Valore = [Costo Acquisto]
+			VAR Elenco =
+				FILTER (
+					CALCULATETABLE (
+						ADDCOLUMNS ( VALUES ( Articoli[Descrizione] ), "@Valore", [Costo Acquisto] ),
+						ALLSELECTED ( Articoli )
+					),
+					NOT ISBLANK ( [@Valore] )
+				)
+			VAR Cumulato = SUMX ( FILTER ( Elenco, [@Valore] >= Valore ), [@Valore] )
+			VAR Totale = SUMX ( Elenco, [@Valore] )
+			RETURN
+				IF ( NOT ISBLANK ( Valore ), DIVIDE ( Cumulato, Totale ) )
+		formatString: 0.0%
+		displayFolder: 2. Analisi ABC
+		lineageTag: d8140a12-67bd-5448-bc15-c103f8c5a22d
+
+	/// A = articoli che pesano l'80% della spesa, B = fino al 95%, C = il resto.
+	measure 'Classe ABC Articolo' =
+			VAR Quota = [Quota Cumulata Articolo %]
+			RETURN
+				SWITCH ( TRUE (), ISBLANK ( Quota ), BLANK (), Quota <= 0.80, "A", Quota <= 0.95, "B", "C" )
+		displayFolder: 2. Analisi ABC
+		lineageTag: 6486e94b-a59e-5c01-8b6b-1bf63682541c
+
+	measure 'Quota Cumulata Famiglia %' =
+			VAR Valore = [Costo Acquisto]
+			VAR Elenco =
+				FILTER (
+					CALCULATETABLE (
+						ADDCOLUMNS ( VALUES ( Articoli[Famiglia] ), "@Valore", [Costo Acquisto] ),
+						ALLSELECTED ( Articoli )
+					),
+					NOT ISBLANK ( [@Valore] )
+				)
+			VAR Cumulato = SUMX ( FILTER ( Elenco, [@Valore] >= Valore ), [@Valore] )
+			VAR Totale = SUMX ( Elenco, [@Valore] )
+			RETURN
+				IF ( NOT ISBLANK ( Valore ), DIVIDE ( Cumulato, Totale ) )
+		formatString: 0.0%
+		displayFolder: 2. Analisi ABC
+		lineageTag: 40c643bc-a2ff-5d0d-bf47-722569a64a3d
+
+	measure 'Classe ABC Famiglia' =
+			VAR Quota = [Quota Cumulata Famiglia %]
+			RETURN
+				SWITCH ( TRUE (), ISBLANK ( Quota ), BLANK (), Quota <= 0.80, "A", Quota <= 0.95, "B", "C" )
+		displayFolder: 2. Analisi ABC
+		lineageTag: ac551f72-df03-5a45-8b27-38c25d60ba55
+
+	measure 'Quota Cumulata Fornitore %' =
+			VAR Valore = [Costo Acquisto]
+			VAR Elenco =
+				FILTER (
+					CALCULATETABLE (
+						ADDCOLUMNS ( VALUES ( Fornitori[Fornitore] ), "@Valore", [Costo Acquisto] ),
+						ALLSELECTED ( Fornitori )
+					),
+					NOT ISBLANK ( [@Valore] )
+				)
+			VAR Cumulato = SUMX ( FILTER ( Elenco, [@Valore] >= Valore ), [@Valore] )
+			VAR Totale = SUMX ( Elenco, [@Valore] )
+			RETURN
+				IF ( NOT ISBLANK ( Valore ), DIVIDE ( Cumulato, Totale ) )
+		formatString: 0.0%
+		displayFolder: 2. Analisi ABC
+		lineageTag: fd4047da-07fa-5df4-8501-4735a745124d
+
+	measure 'Classe ABC Fornitore' =
+			VAR Quota = [Quota Cumulata Fornitore %]
+			RETURN
+				SWITCH ( TRUE (), ISBLANK ( Quota ), BLANK (), Quota <= 0.80, "A", Quota <= 0.95, "B", "C" )
+		displayFolder: 2. Analisi ABC
+		lineageTag: 1ad5a518-7141-58a5-841f-c9e38f9d3128
+
+	measure 'Articoli in Classe A' =
+			COUNTROWS (
+				FILTER ( VALUES ( Articoli[Descrizione] ), [Classe ABC Articolo] = "A" )
+			)
+		formatString: #,0
+		displayFolder: 2. Analisi ABC
+		lineageTag: 5a185c3a-075a-5947-bd7a-0c2937c7dfbf
+
+	/// Segnala i casi da verificare con l'ufficio acquisti.
+	measure 'Stato Confronto Listino' =
+			SWITCH (
+				TRUE (),
+				ISBLANK ( [Costo Acquisto] ), BLANK (),
+				ISBLANK ( [Valore a Listino] ), "Listino mancante",
+				[Costo Acquisto] > [Valore a Listino], "Costo sopra listino",
+				"In linea con il listino"
+			)
+		displayFolder: 3. Controlli
+		lineageTag: ddd9c0e3-7b14-51e7-90d6-fc5a0d0c40f1
+
+	measure 'Righe senza Listino' = CALCULATE ( COUNTROWS ( Acquisti ), ISBLANK ( Acquisti[Listino Totale] ) )
+		formatString: #,0
+		displayFolder: 3. Controlli
+		lineageTag: 79d81391-c51b-5b0b-a1af-52af123c1a36
+
+	column Colonna
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71bd95ee-bc05-5ccf-aabc-750f8dc90c0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Colonna]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Misure = calculated
+		mode: import
+		source = ROW ( "Colonna", 0 )

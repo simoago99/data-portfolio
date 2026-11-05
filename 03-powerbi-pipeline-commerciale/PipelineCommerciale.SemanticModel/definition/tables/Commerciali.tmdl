@@ -1,0 +1,39 @@
+table Commerciali
+	lineageTag: f55b270a-52fa-5a2a-9cf5-7805c6dd4f08
+
+	column 'Codice Commerciale'
+		dataType: string
+		lineageTag: c0a4966f-e4c0-5e61-b01f-d01fa188de0d
+		summarizeBy: none
+		sourceColumn: Codice Commerciale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Commerciale
+		dataType: string
+		lineageTag: c9939faa-ba52-501d-8af4-47135c0cbd22
+		summarizeBy: none
+		sourceColumn: Commerciale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 54f2b5b4-6b0d-57a6-acd0-3ca3db615553
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Commerciali = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "commerciali.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Codice Commerciale", type text}, {"Commerciale", type text}, {"Team", type text}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

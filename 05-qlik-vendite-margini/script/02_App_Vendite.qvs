@@ -1,0 +1,223 @@
+///$tab Leggimi
+/*
+================================================================================
+ LIVELLO 2 – APP "VENDITE E MARGINI"
+ Legge i QVD prodotti da 01_Estrazione_QVD.qvs e costruisce il modello dati.
+
+ Modello: una tabella dei fatti unica (Fatti) che unisce tre fonti,
+ distinte dal campo Fonte = 'Fatturato' | 'Ordinato' | 'Budget'.
+ È una scelta tipica in Qlik: evita chiavi sintetiche e loop tra tabelle
+ che condividono le stesse dimensioni, e le misure si separano con la
+ set analysis (es. Sum({<Fonte={'Fatturato'}>} Valore)).
+
+   Clienti ─┐
+   Agenti  ─┼── Fatti ── Calendario
+   Articoli ┘      └──── ClassiABC (chiave Cliente|Anno)
+
+ Tecniche usate: mapping load + ApplyMap, concatenazione di fonti diverse,
+ preceding load, calendario master con flag YTD/LYTD, classificazione ABC
+ calcolata nello script (ordinamento + Peek), variabili per la set analysis.
+================================================================================
+*/
+
+///$tab Impostazioni
+SET ThousandSep='.';
+SET DecimalSep=',';
+SET MoneyThousandSep='.';
+SET MoneyDecimalSep=',';
+SET MoneyFormat='€ #.##0,00;-€ #.##0,00';
+SET TimeFormat='hh:mm:ss';
+SET DateFormat='DD/MM/YYYY';
+SET TimestampFormat='DD/MM/YYYY hh:mm:ss';
+SET FirstWeekDay=0;
+SET MonthNames='gen;feb;mar;apr;mag;giu;lug;ago;set;ott;nov;dic';
+SET LongMonthNames='gennaio;febbraio;marzo;aprile;maggio;giugno;luglio;agosto;settembre;ottobre;novembre;dicembre';
+SET DayNames='lun;mar;mer;gio;ven;sab;dom';
+
+SET vQVD = 'lib://QVD/';
+
+// Livello di servizio: una consegna è puntuale se arriva entro +/- N giorni dalla data richiesta
+SET vTolleranzaAnticipo = 2;
+SET vTolleranzaRitardo = 2;
+
+///$tab Mapping
+// Le mappe sostituiscono le join quando serve un solo campo da un'altra tabella
+MapFamiglia:
+MAPPING LOAD [Codice Articolo], Famiglia
+FROM [$(vQVD)Articoli.qvd] (qvd);
+
+MapCostoStd:
+MAPPING LOAD [Codice Articolo], [Costo Standard]
+FROM [$(vQVD)Articoli.qvd] (qvd);
+
+///$tab Anagrafiche
+Clienti:
+LOAD
+    [Codice Cliente]                     AS CodCliente,
+    [Ragione Sociale]                    AS Cliente,
+    Provincia,
+    Zona,
+    Canale,
+    Date(Floor([Data Acquisizione]))     AS [Data Acquisizione]
+FROM [$(vQVD)Clienti.qvd] (qvd);
+
+Agenti:
+LOAD
+    [Codice Agente]                      AS CodAgente,
+    Agente,
+    Area                                 AS [Area Agente]
+FROM [$(vQVD)Agenti.qvd] (qvd);
+
+// La Famiglia non sta qui ma nella tabella dei fatti, perché il budget
+// è definito per famiglia e non per articolo.
+Articoli:
+LOAD
+    [Codice Articolo]                    AS CodArticolo,
+    Descrizione                          AS Articolo,
+    [Prezzo Listino]                     AS [Prezzo Listino Anagrafica]
+FROM [$(vQVD)Articoli.qvd] (qvd);
+
+///$tab Fatturato
+Fatti:
+LOAD
+    'Fatturato'                                              AS Fonte,
+    [Numero Fattura]                                         AS [Numero Documento],
+    Date(Floor([Data Fattura]))                              AS Data,
+    [Codice Cliente]                                         AS CodCliente,
+    [Codice Agente]                                          AS CodAgente,
+    [Codice Articolo]                                        AS CodArticolo,
+    ApplyMap('MapFamiglia', [Codice Articolo], 'Non classificato') AS Famiglia,
+    Quantita                                                 AS Quantità,
+    Imponibile                                               AS Valore,
+    Costo,
+    Imponibile - Costo                                       AS Margine,
+    Quantita * [Prezzo Listino] * [Sconto %] / 100           AS [Valore Sconto],
+    [Valore Omaggio],
+    [Codice Cliente] & '|' & Year([Data Fattura])            AS %ClienteAnno
+FROM [$(vQVD)FattureRighe.qvd] (qvd);
+
+///$tab Ordinato
+// Preceding load: il LOAD superiore usa [Giorni Ritardo] calcolato in quello inferiore
+Concatenate (Fatti)
+LOAD
+    *,
+    If(IsNull([Giorni Ritardo]), Null(),
+        If([Giorni Ritardo] < -$(vTolleranzaAnticipo), 'In anticipo',
+        If([Giorni Ritardo] >  $(vTolleranzaRitardo),  'In ritardo', 'Puntuale'))) AS [Esito Consegna];
+LOAD
+    'Ordinato'                                               AS Fonte,
+    [Numero Ordine]                                          AS [Numero Documento],
+    Date(Floor([Data Ordine]))                               AS Data,
+    [Codice Cliente]                                         AS CodCliente,
+    [Codice Agente]                                          AS CodAgente,
+    [Codice Articolo]                                        AS CodArticolo,
+    ApplyMap('MapFamiglia', [Codice Articolo], 'Non classificato') AS Famiglia,
+    Quantita                                                 AS Quantità,
+    [Valore Riga]                                            AS Valore,
+    Quantita * ApplyMap('MapCostoStd', [Codice Articolo], 0) AS Costo,
+    [Stato Riga],
+    Date(Floor([Data Consegna Richiesta]))                   AS [Data Consegna Richiesta],
+    If(Len(Trim([Data Consegna Effettiva])) > 0, Date(Floor([Data Consegna Effettiva])))      AS [Data Consegna Effettiva],
+    If(Len(Trim([Data Consegna Effettiva])) > 0, [Data Consegna Effettiva] - [Data Consegna Richiesta]) AS [Giorni Ritardo],
+    AutoNumber([Numero Ordine] & '|' & RecNo(), 'RigaOrdine') AS %RigaOrdine,
+    [Codice Cliente] & '|' & Year([Data Ordine])             AS %ClienteAnno
+FROM [$(vQVD)OrdiniRighe.qvd] (qvd);
+
+///$tab Budget
+// Il budget è mensile e per famiglia: la data è il primo giorno del mese
+Concatenate (Fatti)
+LOAD
+    'Budget'                                                 AS Fonte,
+    MakeDate(Anno, Mese, 1)                                  AS Data,
+    Famiglia,
+    Budget                                                   AS [Valore Budget]
+FROM [$(vQVD)Budget.qvd] (qvd);
+
+///$tab Calendario
+// Data di riferimento = ultima data fatturata: tutti i confronti YTD partono da qui
+TmpRif:
+LOAD Max(Data) AS DataRif RESIDENT Fatti WHERE Fonte = 'Fatturato';
+LET vDataRif = Num(Peek('DataRif', 0, 'TmpRif'));
+DROP TABLE TmpRif;
+
+TmpRange:
+LOAD Min(Data) AS MinData, Max(Data) AS MaxData RESIDENT Fatti;
+LET vMinData = Num(Peek('MinData', 0, 'TmpRange'));
+LET vMaxData = Num(YearEnd(Peek('MaxData', 0, 'TmpRange')));
+DROP TABLE TmpRange;
+
+Calendario:
+LOAD
+    Data,
+    Year(Data)                                    AS Anno,
+    Month(Data)                                   AS Mese,
+    Date(MonthStart(Data), 'YYYY-MM')             AS [Anno Mese],
+    'T' & Ceil(Month(Data) / 3)                   AS Trimestre,
+    Week(Data)                                    AS Settimana,
+    WeekDay(Data)                                 AS [Giorno Settimana],
+    -InYearToDate(Data, $(vDataRif), 0)           AS FlagYTD,
+    -InYearToDate(Data, $(vDataRif), -1)          AS FlagLYTD;
+LOAD
+    Date($(vMinData) + IterNo() - 1)              AS Data
+AUTOGENERATE 1
+WHILE $(vMinData) + IterNo() - 1 <= $(vMaxData);
+
+///$tab ABC Clienti
+// Classe ABC per cliente e per anno:
+// A = clienti che insieme fanno l'80% del fatturato dell'anno, B = fino al 95%, C = il resto.
+TmpFattCliente:
+LOAD
+    %ClienteAnno,
+    Sum(Valore)                                   AS FatturatoAnno
+RESIDENT Fatti
+WHERE Fonte = 'Fatturato'
+GROUP BY %ClienteAnno;
+
+TmpABC:
+NoConcatenate
+LOAD
+    %ClienteAnno,
+    SubField(%ClienteAnno, '|', 2)                AS AnnoABC,
+    FatturatoAnno
+RESIDENT TmpFattCliente;
+DROP TABLE TmpFattCliente;
+
+LEFT JOIN (TmpABC)
+LOAD AnnoABC, Sum(FatturatoAnno) AS TotaleAnno
+RESIDENT TmpABC
+GROUP BY AnnoABC;
+
+// Somma cumulata: i clienti sono ordinati per fatturato decrescente dentro ogni anno
+TmpCumulato:
+NoConcatenate
+LOAD
+    %ClienteAnno,
+    AnnoABC,
+    TotaleAnno,
+    If(AnnoABC = Previous(AnnoABC), RangeSum(Peek('Cumulato'), FatturatoAnno), FatturatoAnno) AS Cumulato
+RESIDENT TmpABC
+ORDER BY AnnoABC, FatturatoAnno DESC;
+DROP TABLE TmpABC;
+
+ClassiABC:
+NoConcatenate
+LOAD
+    %ClienteAnno,
+    AnnoABC                                       AS [Anno ABC],
+    Cumulato / TotaleAnno                         AS [Quota Cumulata ABC],
+    If(Cumulato / TotaleAnno <= 0.80, 'A',
+        If(Cumulato / TotaleAnno <= 0.95, 'B', 'C')) AS [Classe ABC]
+RESIDENT TmpCumulato;
+DROP TABLE TmpCumulato;
+
+///$tab Variabili
+// Variabili riutilizzate nelle espressioni dell'app (vedi espressioni/misure_master.md)
+LET vDataRifTesto = Date($(vDataRif));
+LET vAnnoRif      = Year($(vDataRif));
+
+// Azzera le selezioni sul calendario: i KPI YTD non devono dipendere da Anno/Mese selezionati
+SET vResetCal = Anno=, Mese=, [Anno Mese]=, Trimestre=, Settimana=, Data=;
+SET vSetYTD   = FlagYTD={1}, $(vResetCal);
+SET vSetLYTD  = FlagLYTD={1}, $(vResetCal);
+
+TRACE >>> Modello caricato. Data di riferimento: $(vDataRifTesto);

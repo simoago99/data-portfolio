@@ -1,0 +1,64 @@
+table Clienti
+	lineageTag: c6bbacc9-677d-5a3d-9d19-06894ae6905e
+
+	column 'Codice Cliente'
+		dataType: string
+		lineageTag: 09ff418e-fedf-5435-9425-2ca47d20a19d
+		summarizeBy: none
+		sourceColumn: Codice Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ragione Sociale'
+		dataType: string
+		lineageTag: 31c07dc0-0460-534d-82cc-83faadb42492
+		summarizeBy: none
+		sourceColumn: Ragione Sociale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Settore
+		dataType: string
+		lineageTag: e0893aba-4de8-5d8e-8dc0-f014038c470f
+		summarizeBy: none
+		sourceColumn: Settore
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regione
+		dataType: string
+		lineageTag: ed3acd5a-26dc-5271-8c3a-ca5038018a09
+		summarizeBy: none
+		sourceColumn: Regione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimensione
+		dataType: string
+		lineageTag: d3ec77cb-fcda-52d5-a216-51061670ede6
+		summarizeBy: none
+		sourceColumn: Dimensione
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Commerciale'
+		dataType: string
+		isHidden
+		lineageTag: 298de884-b038-5ecd-bf66-15d3483e1aca
+		summarizeBy: none
+		sourceColumn: Codice Commerciale
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clienti = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "clienti.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Codice Cliente", type text}, {"Ragione Sociale", type text}, {"Settore", type text}, {"Regione", type text}, {"Dimensione", type text}, {"Codice Commerciale", type text}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

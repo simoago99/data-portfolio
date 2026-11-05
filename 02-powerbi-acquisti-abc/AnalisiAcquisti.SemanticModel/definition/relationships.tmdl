@@ -1,0 +1,12 @@
+relationship 5ceee041-534b-553a-94a7-4e635064d38a
+	fromColumn: Acquisti.'Codice Articolo'
+	toColumn: Articoli.'Codice Articolo'
+
+relationship 3af3f109-c57f-5654-86e3-755769898ee1
+	fromColumn: Acquisti.'Codice Fornitore'
+	toColumn: Fornitori.'Codice Fornitore'
+
+relationship 737dd536-f040-5a76-92c3-6fa947d2fce7
+	fromColumn: Acquisti.'Data Documento'
+	toColumn: Calendario.Data
+

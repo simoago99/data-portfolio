@@ -1,0 +1,6 @@
+/// Percorso della cartella "data" del progetto (con la barra finale). Modificalo dopo aver clonato il repository.
+expression CartellaDati = "C:\data-portfolio\02-powerbi-acquisti-abc\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: c57e8375-a468-520a-9ab5-5089fd76f8a3
+
+	annotation PBI_ResultType = Text
+

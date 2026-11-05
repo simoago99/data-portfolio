@@ -1,0 +1,296 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "00000000000000000204",
+  "position": {
+    "x": 24,
+    "y": 128,
+    "z": 204000,
+    "height": 577,
+    "width": 1232,
+    "tabOrder": 204000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Produzione"
+                    }
+                  },
+                  "Property": "Data"
+                }
+              },
+              "queryRef": "Produzione.Data",
+              "nativeQueryRef": "Data"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Produzione"
+                    }
+                  },
+                  "Property": "Ordine Produzione"
+                }
+              },
+              "queryRef": "Produzione.Ordine Produzione",
+              "nativeQueryRef": "Ordine Produzione"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Produzione"
+                    }
+                  },
+                  "Property": "Linea"
+                }
+              },
+              "queryRef": "Produzione.Linea",
+              "nativeQueryRef": "Linea"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Produzione"
+                    }
+                  },
+                  "Property": "Turno"
+                }
+              },
+              "queryRef": "Produzione.Turno",
+              "nativeQueryRef": "Turno"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Articoli"
+                    }
+                  },
+                  "Property": "Descrizione"
+                }
+              },
+              "queryRef": "Articoli.Descrizione",
+              "nativeQueryRef": "Descrizione"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Misure"
+                    }
+                  },
+                  "Property": "Consumo Kg"
+                }
+              },
+              "queryRef": "_Misure.Consumo Kg",
+              "nativeQueryRef": "Consumo Kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Misure"
+                    }
+                  },
+                  "Property": "Produzione Kg"
+                }
+              },
+              "queryRef": "_Misure.Produzione Kg",
+              "nativeQueryRef": "Produzione Kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Misure"
+                    }
+                  },
+                  "Property": "% Scarto"
+                }
+              },
+              "queryRef": "_Misure.% Scarto",
+              "nativeQueryRef": "% Scarto"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Misure"
+                    }
+                  },
+                  "Property": "Produttività Netta kg/h"
+                }
+              },
+              "queryRef": "_Misure.Produttività Netta kg/h",
+              "nativeQueryRef": "Produttività Netta kg/h"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Misure"
+                    }
+                  },
+                  "Property": "Stato vs Target"
+                }
+              },
+              "queryRef": "_Misure.Stato vs Target",
+              "nativeQueryRef": "Stato vs Target"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Misure"
+                  }
+                },
+                "Property": "% Scarto"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#DDE3EA'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ordini di produzione'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#17324D'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

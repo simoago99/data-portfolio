@@ -1,0 +1,74 @@
+table Scadenze
+	lineageTag: 0f95a47f-e2b8-50b5-94a7-62f432d675cf
+
+	column 'Numero Fattura'
+		dataType: string
+		lineageTag: f1576166-b472-5933-9838-758ab2fd8dd0
+		summarizeBy: none
+		sourceColumn: Numero Fattura
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Cliente'
+		dataType: string
+		isHidden
+		lineageTag: 53f067c0-9ce5-524d-8642-3495879ac1c6
+		summarizeBy: none
+		sourceColumn: Codice Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Fattura'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 37fb1a43-79a0-5393-9ff9-5014359e5a03
+		summarizeBy: none
+		sourceColumn: Data Fattura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data Scadenza'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b09313dd-dbff-5feb-9bcb-83e7455c3d47
+		summarizeBy: none
+		sourceColumn: Data Scadenza
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Importo
+		dataType: decimal
+		formatString: € #,0
+		lineageTag: 0d2e02b7-39ac-58a8-b958-b6346c42efc6
+		summarizeBy: sum
+		sourceColumn: Importo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Pagamento'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4e6f6795-dec8-5314-b633-fc836f50ead2
+		summarizeBy: none
+		sourceColumn: Data Pagamento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Scadenze = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "scadenze.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Numero Fattura", type text}, {"Codice Cliente", type text}, {"Data Fattura", type date}, {"Data Scadenza", type date}, {"Importo", Currency.Type}, {"Data Pagamento", type date}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

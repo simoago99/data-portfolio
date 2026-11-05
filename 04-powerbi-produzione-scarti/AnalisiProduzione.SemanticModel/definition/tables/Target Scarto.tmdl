@@ -1,0 +1,17 @@
+table 'Target Scarto'
+	lineageTag: 5f014842-6154-508c-9fbc-0dbb2dde1484
+
+	column Target
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5b5fb686-5509-5dd4-b8e6-fdbfd889223b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Target]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Target Scarto' = calculated
+		mode: import
+		source =
+				DATATABLE ( "Target", DOUBLE, { { 0.03 }, { 0.035 }, { 0.04 }, { 0.045 }, { 0.05 } } )

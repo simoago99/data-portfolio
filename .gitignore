@@ -1,0 +1,26 @@
+# Power BI: file locali e cache dei progetti .pbip
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/*.pbix.bak
+
+# Qlik: QVD e app generati in locale
+*.qvd
+*.qvf
+*.log
+
+# Credenziali e configurazioni locali
+.env
+*.env
+**/secrets*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Sistema operativo ed editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

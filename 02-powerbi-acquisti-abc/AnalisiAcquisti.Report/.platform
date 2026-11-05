@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AnalisiAcquisti"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8eb5a143-c340-5e4b-88af-31b935009781"
+  }
+}

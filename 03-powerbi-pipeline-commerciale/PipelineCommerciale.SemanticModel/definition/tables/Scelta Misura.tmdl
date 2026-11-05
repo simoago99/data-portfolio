@@ -1,0 +1,28 @@
+table 'Scelta Misura'
+	lineageTag: 99a0a136-81f2-5a27-bc69-5808880875f4
+
+	column Ordine
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3b234f73-7b13-5ec3-b4bc-09d1e9bad8c9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ordine]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Misura
+		dataType: string
+		lineageTag: 43e7ba66-2466-5a5b-9992-239a830b7f39
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Misura]
+		sortByColumn: Ordine
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Scelta Misura' = calculated
+		mode: import
+		source =
+				DATATABLE ( "Ordine", INTEGER, "Misura", STRING, { { 1, "Offerto" }, { 2, "Ordinato" }, { 3, "Fatturato" } } )

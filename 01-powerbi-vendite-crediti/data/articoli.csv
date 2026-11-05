@@ -1,0 +1,85 @@
+Codice Articolo,Descrizione,Famiglia,Codice Fornitore,Prezzo Listino,Costo Standard
+A00001,Caffè in grani 1kg,Caffè,F001,10.36,7.36
+A00002,Caffè in grani 1kg – formato promo,Caffè,F001,25.97,14.34
+A00003,Caffè macinato 250g,Caffè,F001,26.17,17.27
+A00004,Caffè macinato 250g – formato promo,Caffè,F001,11.85,7.00
+A00005,Capsule compatibili x50,Caffè,F001,22.77,15.25
+A00006,Decaffeinato in grani 500g,Caffè,F001,18.39,11.22
+A00007,Orzo solubile 200g,Caffè,F001,15.83,9.42
+A00008,Orzo solubile 200g – formato promo,Caffè,F001,9.87,6.12
+A00009,"Acqua naturale 6x1,5L",Bevande,F002,4.22,2.69
+A00010,"Acqua frizzante 6x1,5L",Bevande,F002,11.32,7.98
+A00011,Aranciata 24x33cl,Bevande,F002,12.54,7.15
+A00012,Tè freddo limone 24x33cl,Bevande,F002,11.24,6.73
+A00013,Tè freddo limone 24x33cl – formato promo,Bevande,F002,4.51,2.68
+A00014,Succo pesca 24x20cl,Bevande,F002,8.97,5.25
+A00015,Succo pesca 24x20cl – formato promo,Bevande,F002,13.89,10.21
+A00016,Bibita cola 24x33cl,Bevande,F002,15.15,8.39
+A00017,Bibita cola 24x33cl – formato promo,Bevande,F002,15.10,11.18
+A00018,Spaghetti 5kg,Pasta e farine,F003,24.31,18.09
+A00019,Spaghetti 5kg – formato promo,Pasta e farine,F003,27.74,20.64
+A00020,Penne rigate 5kg,Pasta e farine,F003,7.88,5.67
+A00021,Farina tipo 00 25kg,Pasta e farine,F003,20.75,13.14
+A00022,Lasagne fresche 1kg,Pasta e farine,F003,9.69,6.76
+A00023,Gnocchi 1kg,Pasta e farine,F003,23.51,16.92
+A00024,Gnocchi 1kg – formato promo,Pasta e farine,F003,17.34,11.31
+A00025,Croissant vuoti x60,Dolci e snack,F004,43.99,30.64
+A00026,Croissant vuoti x60 – formato promo,Dolci e snack,F004,24.18,14.14
+A00027,Biscotti frollini 3kg,Dolci e snack,F004,27.31,20.17
+A00028,Biscotti frollini 3kg – formato promo,Dolci e snack,F004,36.23,21.49
+A00029,Cornetti crema x50,Dolci e snack,F004,24.48,17.63
+A00030,Muffin cioccolato x24,Dolci e snack,F004,32.42,23.84
+A00031,Muffin cioccolato x24 – formato promo,Dolci e snack,F004,20.51,14.12
+A00032,Crackers monoporzione x100,Dolci e snack,F004,16.97,9.63
+A00033,Mozzarella fiordilatte 1kg,Latticini,F005,10.78,6.08
+A00034,Mascarpone 500g,Latticini,F005,17.81,10.81
+A00035,Mascarpone 500g – formato promo,Latticini,F005,10.70,7.69
+A00036,Panna da cucina 1L,Latticini,F005,19.33,12.36
+A00037,Burro 1kg,Latticini,F005,16.06,9.21
+A00038,Grana grattugiato 1kg,Latticini,F005,13.32,7.70
+A00039,Polpa di pomodoro 4kg,Conserve,F006,18.75,10.49
+A00040,Polpa di pomodoro 4kg – formato promo,Conserve,F006,10.73,6.20
+A00041,"Tonno all'olio 1,7kg",Conserve,F006,13.29,8.70
+A00042,"Tonno all'olio 1,7kg – formato promo",Conserve,F006,10.59,5.89
+A00043,Olive verdi 3kg,Conserve,F006,12.47,8.48
+A00044,Carciofini 2kg,Conserve,F006,5.28,3.17
+A00045,Carciofini 2kg – formato promo,Conserve,F006,14.13,8.89
+A00046,"Patatine fritte 2,5kg",Surgelati,F007,16.96,11.13
+A00047,Verdure grigliate 1kg,Surgelati,F007,6.63,4.33
+A00048,"Spinaci a cubetti 2,5kg",Surgelati,F007,18.22,10.39
+A00049,"Spinaci a cubetti 2,5kg – formato promo",Surgelati,F007,28.70,21.19
+A00050,Minestrone 1kg,Surgelati,F007,23.44,16.47
+A00051,Minestrone 1kg – formato promo,Surgelati,F007,14.26,10.09
+A00052,Frutti di bosco 1kg,Surgelati,F007,32.95,24.59
+A00053,Pane per tramezzini 1kg,Panetteria,F008,9.67,6.38
+A00054,Pane per tramezzini 1kg – formato promo,Panetteria,F008,5.20,3.21
+A00055,Focaccia precotta x10,Panetteria,F008,3.24,2.08
+A00056,Pizza base x12,Panetteria,F008,7.86,5.08
+A00057,Bauletto bianco 500g,Panetteria,F008,10.12,5.83
+A00058,Detersivo lavastoviglie 10kg,Detergenza,F009,38.25,23.07
+A00059,Detersivo lavastoviglie 10kg – formato promo,Detergenza,F009,24.13,13.71
+A00060,Sgrassatore 5L,Detergenza,F009,37.76,24.56
+A00061,Sgrassatore 5L – formato promo,Detergenza,F009,39.08,23.52
+A00062,Brillantante 5L,Detergenza,F009,35.50,22.71
+A00063,Sapone mani 5L,Detergenza,F009,35.38,22.22
+A00064,Sapone mani 5L – formato promo,Detergenza,F009,24.98,18.62
+A00065,Bicchieri carta x1000,Monouso,F010,12.54,6.97
+A00066,Bicchieri carta x1000 – formato promo,Monouso,F010,14.80,8.73
+A00067,Tovaglioli 33x33 x2400,Monouso,F010,9.53,6.53
+A00068,Vaschette alluminio x100,Monouso,F010,13.88,8.60
+A00069,Vaschette alluminio x100 – formato promo,Monouso,F010,22.92,14.74
+A00070,Cannucce carta x500,Monouso,F010,26.32,17.49
+A00071,Cannucce carta x500 – formato promo,Monouso,F010,10.35,7.56
+A00072,Olio extravergine 5L,Olio e condimenti,F011,5.60,3.63
+A00073,Olio extravergine 5L – formato promo,Olio e condimenti,F011,9.08,5.43
+A00074,Olio di semi 10L,Olio e condimenti,F011,9.36,6.66
+A00075,Aceto balsamico 1L,Olio e condimenti,F011,28.87,19.98
+A00076,Sale fino 10kg,Olio e condimenti,F011,44.71,27.64
+A00077,Amaro alle erbe 70cl,Liquori,F012,16.83,11.05
+A00078,Amaro alle erbe 70cl – formato promo,Liquori,F012,11.02,7.41
+A00079,Limoncello 70cl,Liquori,F012,23.77,14.33
+A00080,Limoncello 70cl – formato promo,Liquori,F012,8.67,4.96
+A00081,Grappa 70cl,Liquori,F012,12.66,7.05
+A00082,Grappa 70cl – formato promo,Liquori,F012,12.75,7.50
+A00083,Vermouth rosso 1L,Liquori,F012,14.55,8.99
+A00084,Vermouth rosso 1L – formato promo,Liquori,F012,13.57,7.71

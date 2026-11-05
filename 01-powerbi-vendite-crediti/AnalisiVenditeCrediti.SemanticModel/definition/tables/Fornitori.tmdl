@@ -1,0 +1,31 @@
+table Fornitori
+	lineageTag: fd29f59e-c9b9-5bcc-8f8a-920d90d0828c
+
+	column 'Codice Fornitore'
+		dataType: string
+		lineageTag: b0cb83b5-1908-5818-9ab2-0f6b3a3dbf14
+		summarizeBy: none
+		sourceColumn: Codice Fornitore
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fornitore
+		dataType: string
+		lineageTag: 586be971-bab5-5d43-8ec6-f99c6523ed97
+		summarizeBy: none
+		sourceColumn: Fornitore
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fornitori = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "fornitori.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Codice Fornitore", type text}, {"Fornitore", type text}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

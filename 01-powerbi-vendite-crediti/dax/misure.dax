@@ -1,0 +1,244 @@
+-- Misure DAX del progetto "Analisi vendite e crediti"
+-- Generato dal modello semantico: AnalisiVenditeCrediti.SemanticModel/definition/tables/_Misure.tmdl
+
+
+-- ==================== 0. Base ====================
+
+-- Ultima data presente nei dati: le misure "a oggi" usano questa data, così il report resta corretto anche su dati storici.
+[Data Riferimento] =
+    CALCULATE ( MAX ( Fatture[Data Fattura] ), REMOVEFILTERS () )
+
+-- Imponibile fatturato al netto di sconti e omaggi.
+[Fatturato] =
+    SUM ( Fatture[Imponibile] )
+
+-- Quantità venduta nel periodo (stessa logica di Fatturato Periodo).
+[Quantità] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Fine = [Data Riferimento]
+    RETURN
+        IF (
+            FiltroData,
+            SUM ( Fatture[Quantita] ),
+            CALCULATE ( SUM ( Fatture[Quantita] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+        )
+
+-- Fatture emesse nel periodo (stessa logica di Fatturato Periodo).
+[Numero Fatture] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Fine = [Data Riferimento]
+    RETURN
+        IF (
+            FiltroData,
+            DISTINCTCOUNT ( Fatture[Numero Fattura] ),
+            CALCULATE ( DISTINCTCOUNT ( Fatture[Numero Fattura] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+        )
+
+-- Clienti con almeno una riga fatturata a valore nel periodo (stessa logica di Fatturato Periodo).
+[Clienti Attivi] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Fine = [Data Riferimento]
+    RETURN
+        IF (
+            FiltroData,
+            CALCULATE ( DISTINCTCOUNT ( Fatture[Codice Cliente] ), Fatture[Imponibile] > 0 ),
+            CALCULATE ( DISTINCTCOUNT ( Fatture[Codice Cliente] ), Fatture[Imponibile] > 0, DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+        )
+
+[Fatturato Medio per Cliente] =
+    DIVIDE ( [Fatturato Periodo], [Clienti Attivi] )
+
+[Fatturato Medio per Fattura] =
+    DIVIDE ( [Fatturato Periodo], [Numero Fatture] )
+
+[Prezzo Medio] =
+    DIVIDE ( [Fatturato Periodo], [Quantità] )
+
+
+-- ==================== 1. Periodo e confronto AP ====================
+
+-- Se l'utente filtra un periodo usa la selezione, altrimenti mostra l'anno in corso fino alla data di riferimento (YTD).
+[Fatturato Periodo] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Fine = [Data Riferimento]
+    RETURN
+        IF (
+            FiltroData,
+            [Fatturato],
+            CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+        )
+
+-- Stesso periodo dell'anno precedente. Il periodo selezionato viene troncato alla data di riferimento,
+-- così un anno in corso si confronta con lo stesso numero di giorni dell'anno prima.
+[Fatturato Periodo AP] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Rif = [Data Riferimento]
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    RETURN
+        CALCULATE (
+            [Fatturato],
+            DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) )
+        )
+
+[Delta vs AP] =
+    [Fatturato Periodo] - [Fatturato Periodo AP]
+
+[Var % vs AP] =
+    DIVIDE ( [Delta vs AP], [Fatturato Periodo AP] )
+
+
+-- ==================== 2. Sconti e omaggi ====================
+
+[Valore Sconti] =
+    SUMX ( Fatture, Fatture[Quantita] * Fatture[Prezzo Listino] * Fatture[Sconto %] / 100 )
+
+[Valore Omaggi] =
+    SUM ( Fatture[Valore Omaggio] )
+
+-- Quota del valore a listino concessa in sconti e merce in omaggio.
+[Incidenza % Sconti e Omaggi] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Fine = [Data Riferimento]
+    RETURN
+        IF (
+            FiltroData,
+            DIVIDE ( [Valore Sconti] + [Valore Omaggi], [Fatturato] + [Valore Sconti] + [Valore Omaggi] ),
+            CALCULATE ( DIVIDE ( [Valore Sconti] + [Valore Omaggi], [Fatturato] + [Valore Sconti] + [Valore Omaggi] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+        )
+
+
+-- ==================== 3. Quote e classifiche ====================
+
+[% su Totale Agenti] =
+    DIVIDE ( [Fatturato Periodo], CALCULATE ( [Fatturato Periodo], REMOVEFILTERS ( Agenti ) ) )
+
+[Incidenza % su Totale Articoli] =
+    DIVIDE ( [Fatturato Periodo], CALCULATE ( [Fatturato Periodo], REMOVEFILTERS ( Articoli ) ) )
+
+-- Posizione del cliente per fatturato tra tutti i clienti selezionati, anche se la tabella mostra altre colonne (es. Zona).
+[Posizione Cliente] =
+    VAR Valore = [Fatturato Periodo]
+    VAR Elenco =
+        CALCULATETABLE (
+            ADDCOLUMNS ( VALUES ( Clienti[Ragione Sociale] ), "@Fatturato", [Fatturato Periodo] ),
+            ALLSELECTED ( Clienti )
+        )
+    RETURN
+        IF (
+            ISINSCOPE ( Clienti[Ragione Sociale] ) && NOT ISBLANK ( Valore ),
+            COUNTROWS ( FILTER ( Elenco, [@Fatturato] > Valore ) ) + 1
+        )
+
+-- Peso cumulato del cliente e di tutti quelli che fatturano più di lui (curva di Pareto).
+-- Il calcolo considera tutti i clienti selezionati, non solo quelli della riga.
+[Quota Cumulata Cliente %] =
+    VAR Valore = [Fatturato Periodo]
+    VAR Elenco =
+        FILTER (
+            CALCULATETABLE (
+                ADDCOLUMNS ( VALUES ( Clienti[Ragione Sociale] ), "@Fatturato", [Fatturato Periodo] ),
+                ALLSELECTED ( Clienti )
+            ),
+            NOT ISBLANK ( [@Fatturato] )
+        )
+    VAR Cumulato = SUMX ( FILTER ( Elenco, [@Fatturato] >= Valore ), [@Fatturato] )
+    VAR Totale = SUMX ( Elenco, [@Fatturato] )
+    RETURN
+        IF ( NOT ISBLANK ( Valore ), DIVIDE ( Cumulato, Totale ) )
+
+-- A = clienti che fanno l'80% del fatturato, B = fino al 95%, C = il resto.
+[Classe ABC Cliente] =
+    VAR Quota = [Quota Cumulata Cliente %]
+    RETURN
+        SWITCH ( TRUE (), ISBLANK ( Quota ), BLANK (), Quota <= 0.80, "A", Quota <= 0.95, "B", "C" )
+
+-- Clienti la cui prima fattura in assoluto cade nel periodo analizzato.
+[Nuovi Clienti] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Rif = [Data Riferimento]
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    VAR PrimaFattura =
+        ADDCOLUMNS (
+            VALUES ( Clienti[Codice Cliente] ),
+            "@Prima", CALCULATE ( MIN ( Fatture[Data Fattura] ), REMOVEFILTERS ( Calendario ) )
+        )
+    RETURN
+        COUNTROWS ( FILTER ( PrimaFattura, [@Prima] >= Inizio && [@Prima] <= Fine ) )
+
+-- Clienti che hanno acquistato nei 12 mesi prima del periodo e non hanno più acquistato nel periodo.
+[Clienti Persi] =
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+        || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+    VAR Rif = [Data Riferimento]
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    VAR Stato =
+        ADDCOLUMNS (
+            VALUES ( Clienti[Codice Cliente] ),
+            "@Prima", CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), Inizio - 1 ) ),
+            "@Periodo", CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], Inizio, Fine ) )
+        )
+    RETURN
+        COUNTROWS ( FILTER ( Stato, [@Prima] > 0 && ISBLANK ( [@Periodo] ) ) )
+
+
+-- ==================== 4. Crediti ====================
+
+-- Scadenze non ancora incassate (IVA inclusa).
+[Credito Aperto] =
+    CALCULATE ( SUM ( Scadenze[Importo] ), ISBLANK ( Scadenze[Data Pagamento] ) )
+
+-- Parte del credito aperto con scadenza già passata alla data di riferimento.
+[Credito Scaduto] =
+    VAR Rif = [Data Riferimento]
+    RETURN
+        CALCULATE ( SUM ( Scadenze[Importo] ), ISBLANK ( Scadenze[Data Pagamento] ), Scadenze[Data Scadenza] < Rif )
+
+[% Scaduto] =
+    DIVIDE ( [Credito Scaduto], [Credito Aperto] )
+
+-- Finestra di fatturato usata per il DSO, scelta con lo slicer (default 365 giorni).
+[Giorni Base DSO] =
+    SELECTEDVALUE ( 'Giorni DSO'[Giorni], 365 )
+
+-- Fatturato IVA inclusa degli ultimi N giorni diviso N: serve a tradurre il credito in giorni.
+[Fatturato Medio Giornaliero] =
+    VAR Fine = [Data Riferimento]
+    VAR N = [Giorni Base DSO]
+    VAR FatturatoIvato =
+        CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], Fine - N + 1, Fine ) ) * 1.22
+    RETURN
+        DIVIDE ( FatturatoIvato, N )
+
+-- Days Sales Outstanding: quanti giorni di fatturato sono ancora da incassare.
+[DSO (giorni)] =
+    DIVIDE ( [Credito Aperto], [Fatturato Medio Giornaliero] )
+
+-- Il credito scaduto espresso in giorni di fatturato.
+[Giorni di Scaduto] =
+    DIVIDE ( [Credito Scaduto], [Fatturato Medio Giornaliero] )
+
+-- Media dei giorni tra scadenza e pagamento sulle scadenze già incassate (negativo = pagamento in anticipo).
+[Ritardo Medio Incassi (gg)] =
+    AVERAGEX (
+        FILTER ( Scadenze, NOT ISBLANK ( Scadenze[Data Pagamento] ) ),
+        DATEDIFF ( Scadenze[Data Scadenza], Scadenze[Data Pagamento], DAY )
+    )
+

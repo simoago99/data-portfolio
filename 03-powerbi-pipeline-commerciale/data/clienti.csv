@@ -1,0 +1,221 @@
+Codice Cliente,Ragione Sociale,Settore,Regione,Dimensione,Codice Commerciale
+K0001,Arredi Vittoria Srl,Distribuzione,Veneto,Media,S03
+K0002,Trasporti Due Torri Spa,Manifattura,Lombardia,Media,S04
+K0003,Chimica La Fontana Srl,Distribuzione,Lombardia,Media,S04
+K0004,Alimentare Belvedere Spa,Distribuzione,Lombardia,Media,S04
+K0005,Tessile Due Torri Spa,Distribuzione,Lombardia,Piccola,S06
+K0006,Packaging Primavera Srl,Servizi,Lazio,Media,S03
+K0007,Elettronica La Fontana Spa,Servizi,Piemonte,Piccola,S06
+K0008,Chimica Il Portico Srl,Manifattura,Lombardia,Media,S04
+K0009,Arredi Mille Gusti Srl,Logistica,Toscana,Piccola,S06
+K0010,Trasporti Riviera Spa,Alimentare,Veneto,Piccola,S06
+K0011,Logistica Il Faro Srl,Servizi,Piemonte,Piccola,S06
+K0012,Elettronica Del Sole Spa,Distribuzione,Piemonte,Piccola,S06
+K0013,Chimica Bellavista Srl,Logistica,Lombardia,Media,S03
+K0014,Tessile Stella Spa,Servizi,Campania,Piccola,S05
+K0015,Plastiche Vittoria Srl,Alimentare,Emilia-Romagna,Media,S04
+K0016,Arredi Ai Pini Spa,Logistica,Lazio,Piccola,S06
+K0017,Elettronica Al Ponte Spa,Manifattura,Lombardia,Piccola,S05
+K0018,Plastiche Aurora Srl,Distribuzione,Lombardia,Piccola,S06
+K0019,Elettronica Vittoria Spa,Distribuzione,Veneto,Media,S03
+K0020,Arredi Del Sole Spa,Manifattura,Emilia-Romagna,Piccola,S05
+K0021,Plastiche Le Querce Spa,Manifattura,Lombardia,Grande,S01
+K0022,Packaging Belvedere Srl,Manifattura,Emilia-Romagna,Media,S04
+K0023,Trasporti Il Glicine Spa,Distribuzione,Emilia-Romagna,Piccola,S05
+K0024,Elettronica Il Glicine Srl,Alimentare,Lombardia,Piccola,S05
+K0025,Plastiche Bellavista Srl,Alimentare,Lazio,Piccola,S05
+K0026,Chimica Al Ponte Spa,Servizi,Piemonte,Media,S04
+K0027,Packaging Il Glicine Srl,Alimentare,Lombardia,Piccola,S05
+K0028,Arredi Centrale Spa,Alimentare,Veneto,Media,S03
+K0029,Meccanica Centrale Spa,Distribuzione,Emilia-Romagna,Grande,S01
+K0030,Arredi Ai Pini Srl,Distribuzione,Veneto,Media,S03
+K0031,Arredi Vittoria Srl,Servizi,Toscana,Media,S03
+K0032,Packaging Ai Pini Spa,Servizi,Veneto,Piccola,S05
+K0033,Elettronica Primavera Spa,Alimentare,Lombardia,Piccola,S05
+K0034,Trasporti Belvedere Spa,Manifattura,Emilia-Romagna,Media,S03
+K0035,Arredi Miramonti Spa,Logistica,Lombardia,Piccola,S06
+K0036,Trasporti Il Portico Srl,Logistica,Lazio,Grande,S02
+K0037,Logistica del Borgo Srl,Logistica,Lombardia,Piccola,S05
+K0038,Tessile Le Querce Spa,Alimentare,Veneto,Piccola,S06
+K0039,Arredi Il Faro Srl,Alimentare,Lombardia,Piccola,S05
+K0040,Chimica Riviera Srl,Servizi,Lombardia,Piccola,S05
+K0041,Arredi San Marco Spa,Servizi,Lombardia,Grande,S01
+K0042,Chimica Le Querce Srl,Manifattura,Lazio,Media,S04
+K0043,Arredi Riviera Spa,Alimentare,Emilia-Romagna,Media,S03
+K0044,Logistica Al Ponte Spa,Alimentare,Lombardia,Piccola,S06
+K0045,Plastiche Le Querce Spa,Alimentare,Lazio,Media,S03
+K0046,Packaging del Borgo Srl,Alimentare,Piemonte,Piccola,S06
+K0047,Logistica Il Portico Srl,Servizi,Lombardia,Grande,S01
+K0048,Packaging Ai Pini Srl,Logistica,Emilia-Romagna,Media,S03
+K0049,Logistica Il Portico Srl,Distribuzione,Emilia-Romagna,Media,S04
+K0050,Chimica Due Torri Spa,Logistica,Emilia-Romagna,Piccola,S05
+K0051,Meccanica del Borgo Srl,Servizi,Piemonte,Piccola,S06
+K0052,Meccanica Del Sole Spa,Alimentare,Lombardia,Grande,S01
+K0053,Arredi Vittoria Srl,Alimentare,Lazio,Media,S03
+K0054,Elettronica La Piazzetta Srl,Servizi,Emilia-Romagna,Grande,S02
+K0055,Meccanica San Marco Spa,Manifattura,Lombardia,Media,S03
+K0056,Alimentare Al Ponte Srl,Logistica,Piemonte,Media,S04
+K0057,Elettronica Riviera Srl,Manifattura,Lombardia,Media,S03
+K0058,Logistica Belvedere Srl,Servizi,Veneto,Media,S03
+K0059,Trasporti Belvedere Srl,Alimentare,Lombardia,Piccola,S05
+K0060,Chimica Riviera Spa,Manifattura,Lombardia,Media,S04
+K0061,Meccanica Il Portico Spa,Alimentare,Lombardia,Piccola,S05
+K0062,Alimentare Il Faro Spa,Distribuzione,Toscana,Piccola,S06
+K0063,Logistica Miramonti Srl,Distribuzione,Piemonte,Media,S03
+K0064,Logistica San Marco Srl,Distribuzione,Emilia-Romagna,Piccola,S06
+K0065,Elettronica Due Torri Spa,Servizi,Piemonte,Grande,S01
+K0066,Trasporti Centrale Spa,Servizi,Campania,Piccola,S06
+K0067,Alimentare La Piazzetta Srl,Servizi,Emilia-Romagna,Piccola,S05
+K0068,Logistica La Fontana Spa,Alimentare,Lombardia,Media,S04
+K0069,Meccanica Il Faro Spa,Distribuzione,Lombardia,Grande,S01
+K0070,Meccanica Vittoria Srl,Manifattura,Campania,Piccola,S05
+K0071,Elettronica San Marco Srl,Alimentare,Lombardia,Media,S03
+K0072,Arredi Belvedere Spa,Servizi,Piemonte,Grande,S02
+K0073,Logistica Il Faro Srl,Distribuzione,Lombardia,Piccola,S06
+K0074,Arredi Corte Antica Srl,Alimentare,Lombardia,Grande,S02
+K0075,Meccanica Corte Antica Spa,Alimentare,Lombardia,Media,S04
+K0076,Alimentare Due Torri Srl,Manifattura,Lazio,Media,S03
+K0077,Arredi Bellavista Srl,Distribuzione,Lombardia,Media,S03
+K0078,Logistica Riviera Spa,Alimentare,Lombardia,Media,S04
+K0079,Meccanica Riviera Srl,Manifattura,Lombardia,Grande,S02
+K0080,Alimentare Miramonti Spa,Servizi,Campania,Piccola,S06
+K0081,Trasporti Le Querce Spa,Alimentare,Campania,Piccola,S06
+K0082,Logistica Stella Spa,Alimentare,Emilia-Romagna,Piccola,S05
+K0083,Meccanica Il Faro Spa,Alimentare,Emilia-Romagna,Piccola,S06
+K0084,Arredi San Marco Srl,Alimentare,Toscana,Piccola,S06
+K0085,Chimica del Borgo Spa,Manifattura,Lombardia,Piccola,S06
+K0086,Trasporti Il Glicine Srl,Logistica,Toscana,Piccola,S05
+K0087,Tessile Il Portico Srl,Servizi,Lombardia,Grande,S01
+K0088,Logistica Ai Pini Spa,Logistica,Lazio,Media,S03
+K0089,Packaging Miramonti Spa,Logistica,Lombardia,Media,S03
+K0090,Packaging Bellavista Srl,Logistica,Emilia-Romagna,Media,S03
+K0091,Alimentare Due Torri Spa,Servizi,Toscana,Grande,S02
+K0092,Elettronica Il Faro Spa,Servizi,Emilia-Romagna,Media,S03
+K0093,Alimentare Centrale Srl,Alimentare,Emilia-Romagna,Media,S03
+K0094,Trasporti Riviera Srl,Manifattura,Lombardia,Media,S04
+K0095,Arredi Le Querce Srl,Distribuzione,Veneto,Grande,S01
+K0096,Alimentare Miramonti Srl,Logistica,Piemonte,Piccola,S05
+K0097,Tessile Riviera Srl,Servizi,Veneto,Grande,S02
+K0098,Tessile Al Ponte Spa,Distribuzione,Piemonte,Grande,S02
+K0099,Tessile Del Sole Srl,Alimentare,Campania,Media,S03
+K0100,Logistica Al Ponte Srl,Servizi,Emilia-Romagna,Piccola,S06
+K0101,Meccanica Stella Srl,Distribuzione,Toscana,Media,S03
+K0102,Elettronica La Piazzetta Spa,Manifattura,Lombardia,Media,S03
+K0103,Arredi Del Sole Spa,Manifattura,Lombardia,Grande,S01
+K0104,Packaging Stella Spa,Distribuzione,Veneto,Media,S03
+K0105,Packaging Stella Srl,Servizi,Lombardia,Media,S03
+K0106,Logistica Primavera Srl,Manifattura,Emilia-Romagna,Piccola,S06
+K0107,Trasporti San Marco Spa,Logistica,Piemonte,Piccola,S05
+K0108,Elettronica Primavera Spa,Distribuzione,Lombardia,Media,S04
+K0109,Elettronica Del Sole Spa,Alimentare,Toscana,Piccola,S05
+K0110,Meccanica La Piazzetta Spa,Servizi,Piemonte,Piccola,S06
+K0111,Elettronica Due Torri Spa,Servizi,Piemonte,Media,S04
+K0112,Elettronica La Piazzetta Spa,Servizi,Emilia-Romagna,Media,S04
+K0113,Trasporti La Piazzetta Spa,Logistica,Lombardia,Grande,S02
+K0114,Plastiche Aurora Srl,Distribuzione,Lombardia,Grande,S02
+K0115,Logistica Il Portico Srl,Servizi,Toscana,Piccola,S06
+K0116,Plastiche Corte Antica Srl,Servizi,Lombardia,Grande,S02
+K0117,Tessile Bellavista Srl,Distribuzione,Toscana,Piccola,S05
+K0118,Tessile Stella Spa,Servizi,Lombardia,Media,S03
+K0119,Trasporti Riviera Spa,Servizi,Lombardia,Media,S04
+K0120,Chimica Il Glicine Spa,Alimentare,Emilia-Romagna,Piccola,S06
+K0121,Plastiche Ai Pini Spa,Distribuzione,Toscana,Piccola,S05
+K0122,Packaging San Marco Srl,Distribuzione,Lombardia,Piccola,S05
+K0123,Plastiche Primavera Srl,Logistica,Lombardia,Media,S03
+K0124,Arredi La Piazzetta Srl,Alimentare,Lazio,Media,S04
+K0125,Packaging La Fontana Spa,Distribuzione,Lombardia,Piccola,S06
+K0126,Packaging Centrale Srl,Alimentare,Lombardia,Grande,S01
+K0127,Logistica Belvedere Srl,Servizi,Emilia-Romagna,Piccola,S05
+K0128,Tessile Del Sole Srl,Manifattura,Veneto,Media,S04
+K0129,Meccanica Al Ponte Spa,Servizi,Lazio,Grande,S02
+K0130,Plastiche Centrale Spa,Logistica,Toscana,Media,S03
+K0131,Packaging Vittoria Srl,Distribuzione,Campania,Media,S04
+K0132,Logistica Girasole Srl,Alimentare,Lombardia,Media,S04
+K0133,Arredi del Borgo Spa,Logistica,Toscana,Piccola,S06
+K0134,Elettronica Centrale Spa,Logistica,Emilia-Romagna,Piccola,S05
+K0135,Meccanica Aurora Srl,Logistica,Lombardia,Piccola,S05
+K0136,Plastiche Stella Spa,Alimentare,Lombardia,Media,S03
+K0137,Chimica Le Querce Spa,Servizi,Lazio,Grande,S01
+K0138,Logistica Miramonti Srl,Distribuzione,Emilia-Romagna,Grande,S02
+K0139,Tessile Riviera Srl,Alimentare,Lombardia,Piccola,S06
+K0140,Tessile Corte Antica Spa,Alimentare,Toscana,Media,S04
+K0141,Meccanica Stella Srl,Manifattura,Toscana,Media,S04
+K0142,Plastiche Corte Antica Spa,Alimentare,Lombardia,Media,S04
+K0143,Trasporti Stella Srl,Distribuzione,Lombardia,Piccola,S05
+K0144,Tessile Del Sole Srl,Manifattura,Lombardia,Media,S03
+K0145,Meccanica Ai Pini Srl,Distribuzione,Lombardia,Media,S04
+K0146,Arredi Il Glicine Spa,Alimentare,Lombardia,Grande,S01
+K0147,Tessile Riviera Spa,Alimentare,Lombardia,Media,S04
+K0148,Alimentare Il Glicine Srl,Logistica,Lombardia,Media,S04
+K0149,Trasporti Bellavista Srl,Logistica,Lazio,Media,S04
+K0150,Meccanica Mille Gusti Spa,Manifattura,Veneto,Piccola,S05
+K0151,Elettronica Ai Pini Srl,Logistica,Emilia-Romagna,Grande,S01
+K0152,Packaging La Piazzetta Srl,Distribuzione,Veneto,Grande,S01
+K0153,Tessile Due Torri Spa,Servizi,Lombardia,Media,S03
+K0154,Packaging San Marco Srl,Manifattura,Lazio,Piccola,S05
+K0155,Tessile Ai Pini Srl,Alimentare,Veneto,Media,S03
+K0156,Tessile La Fontana Srl,Alimentare,Campania,Media,S04
+K0157,Trasporti Riviera Spa,Manifattura,Lazio,Media,S03
+K0158,Chimica Belvedere Srl,Logistica,Lazio,Media,S03
+K0159,Meccanica Il Faro Srl,Alimentare,Veneto,Grande,S01
+K0160,Alimentare Il Glicine Srl,Alimentare,Piemonte,Media,S04
+K0161,Tessile Mille Gusti Srl,Distribuzione,Piemonte,Piccola,S06
+K0162,Arredi Ai Pini Spa,Servizi,Lazio,Piccola,S06
+K0163,Tessile Girasole Spa,Logistica,Lombardia,Grande,S02
+K0164,Tessile Belvedere Spa,Servizi,Piemonte,Grande,S01
+K0165,Meccanica del Borgo Srl,Servizi,Lazio,Piccola,S06
+K0166,Trasporti Stella Spa,Alimentare,Lombardia,Grande,S01
+K0167,Trasporti Ai Pini Srl,Alimentare,Piemonte,Media,S03
+K0168,Meccanica Aurora Spa,Distribuzione,Lombardia,Piccola,S06
+K0169,Packaging Vittoria Spa,Distribuzione,Toscana,Media,S04
+K0170,Alimentare Il Glicine Spa,Alimentare,Lombardia,Piccola,S06
+K0171,Meccanica Miramonti Srl,Alimentare,Lombardia,Media,S04
+K0172,Elettronica Vittoria Srl,Distribuzione,Toscana,Media,S03
+K0173,Trasporti Girasole Srl,Distribuzione,Veneto,Piccola,S06
+K0174,Trasporti Bellavista Srl,Distribuzione,Lazio,Media,S03
+K0175,Chimica Il Faro Spa,Distribuzione,Lombardia,Piccola,S06
+K0176,Alimentare Girasole Spa,Alimentare,Veneto,Piccola,S05
+K0177,Packaging San Marco Spa,Servizi,Lombardia,Media,S04
+K0178,Alimentare Belvedere Spa,Distribuzione,Toscana,Piccola,S05
+K0179,Arredi La Piazzetta Srl,Distribuzione,Lazio,Piccola,S06
+K0180,Meccanica Belvedere Spa,Logistica,Piemonte,Media,S04
+K0181,Logistica Due Torri Srl,Logistica,Campania,Media,S03
+K0182,Arredi La Fontana Spa,Manifattura,Lombardia,Grande,S02
+K0183,Plastiche Aurora Spa,Logistica,Toscana,Piccola,S05
+K0184,Meccanica Vittoria Srl,Alimentare,Lombardia,Grande,S01
+K0185,Plastiche Vittoria Spa,Alimentare,Emilia-Romagna,Piccola,S05
+K0186,Plastiche San Marco Srl,Logistica,Lazio,Media,S04
+K0187,Arredi Girasole Srl,Distribuzione,Lombardia,Grande,S01
+K0188,Alimentare Stella Spa,Distribuzione,Piemonte,Media,S03
+K0189,Meccanica San Marco Srl,Manifattura,Veneto,Grande,S01
+K0190,Elettronica Due Torri Srl,Alimentare,Lombardia,Piccola,S06
+K0191,Arredi Il Faro Srl,Servizi,Lazio,Media,S04
+K0192,Trasporti Al Ponte Srl,Logistica,Toscana,Piccola,S06
+K0193,Plastiche Due Torri Spa,Servizi,Emilia-Romagna,Grande,S02
+K0194,Trasporti Bellavista Spa,Manifattura,Piemonte,Grande,S02
+K0195,Elettronica Corte Antica Spa,Alimentare,Veneto,Media,S04
+K0196,Alimentare del Borgo Srl,Manifattura,Veneto,Piccola,S06
+K0197,Alimentare Vittoria Spa,Distribuzione,Piemonte,Media,S04
+K0198,Tessile Ai Pini Spa,Logistica,Lombardia,Media,S03
+K0199,Logistica La Piazzetta Spa,Distribuzione,Emilia-Romagna,Grande,S01
+K0200,Arredi Ai Pini Srl,Distribuzione,Emilia-Romagna,Piccola,S05
+K0201,Arredi Vittoria Spa,Alimentare,Piemonte,Media,S04
+K0202,Elettronica Bellavista Srl,Servizi,Veneto,Piccola,S05
+K0203,Chimica Mille Gusti Srl,Logistica,Lombardia,Piccola,S06
+K0204,Elettronica Miramonti Srl,Manifattura,Toscana,Media,S03
+K0205,Tessile La Piazzetta Srl,Logistica,Veneto,Piccola,S06
+K0206,Meccanica Belvedere Spa,Logistica,Lombardia,Piccola,S06
+K0207,Chimica Primavera Srl,Logistica,Emilia-Romagna,Piccola,S05
+K0208,Packaging Corte Antica Spa,Distribuzione,Campania,Piccola,S06
+K0209,Elettronica Miramonti Srl,Manifattura,Emilia-Romagna,Grande,S02
+K0210,Logistica Corte Antica Spa,Alimentare,Toscana,Piccola,S06
+K0211,Packaging Del Sole Spa,Manifattura,Veneto,Grande,S01
+K0212,Packaging Due Torri Spa,Alimentare,Veneto,Grande,S01
+K0213,Plastiche Girasole Srl,Alimentare,Emilia-Romagna,Media,S04
+K0214,Packaging Il Glicine Srl,Logistica,Emilia-Romagna,Media,S03
+K0215,Meccanica Miramonti Srl,Distribuzione,Campania,Media,S04
+K0216,Chimica San Marco Srl,Servizi,Veneto,Piccola,S06
+K0217,Alimentare Centrale Spa,Servizi,Lombardia,Piccola,S06
+K0218,Trasporti La Fontana Srl,Alimentare,Piemonte,Grande,S02
+K0219,Alimentare Due Torri Srl,Distribuzione,Veneto,Piccola,S06
+K0220,Elettronica Il Glicine Spa,Logistica,Emilia-Romagna,Piccola,S06

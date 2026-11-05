@@ -1,0 +1,316 @@
+table _Misure
+	lineageTag: cae046e3-57e6-51d7-9bed-3ceebb2760f6
+
+	/// Ultima data presente nei dati: le misure "a oggi" usano questa data, così il report resta corretto anche su dati storici.
+	measure 'Data Riferimento' = CALCULATE ( MAX ( Fatture[Data Fattura] ), REMOVEFILTERS () )
+		formatString: Short Date
+		displayFolder: 0. Base
+		lineageTag: 0ba49d78-7982-5f3d-874f-b4f12937e801
+
+	/// Imponibile fatturato al netto di sconti e omaggi.
+	measure Fatturato = SUM ( Fatture[Imponibile] )
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: 0c6af2b6-5420-5c96-9177-337415ebde93
+
+	/// Quantità venduta nel periodo (stessa logica di Fatturato Periodo).
+	measure 'Quantità' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Fine = [Data Riferimento]
+			RETURN
+				IF (
+					FiltroData,
+					SUM ( Fatture[Quantita] ),
+					CALCULATE ( SUM ( Fatture[Quantita] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+				)
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 4b364c91-95df-5b7b-af9d-0d7931cd5da4
+
+	/// Fatture emesse nel periodo (stessa logica di Fatturato Periodo).
+	measure 'Numero Fatture' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Fine = [Data Riferimento]
+			RETURN
+				IF (
+					FiltroData,
+					DISTINCTCOUNT ( Fatture[Numero Fattura] ),
+					CALCULATE ( DISTINCTCOUNT ( Fatture[Numero Fattura] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+				)
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: b9325792-33a3-5036-ad0b-ad8b467d6850
+
+	/// Clienti con almeno una riga fatturata a valore nel periodo (stessa logica di Fatturato Periodo).
+	measure 'Clienti Attivi' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Fine = [Data Riferimento]
+			RETURN
+				IF (
+					FiltroData,
+					CALCULATE ( DISTINCTCOUNT ( Fatture[Codice Cliente] ), Fatture[Imponibile] > 0 ),
+					CALCULATE ( DISTINCTCOUNT ( Fatture[Codice Cliente] ), Fatture[Imponibile] > 0, DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+				)
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 65e2eec4-a153-5f66-be88-cdf295282404
+
+	measure 'Fatturato Medio per Cliente' = DIVIDE ( [Fatturato Periodo], [Clienti Attivi] )
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: 408dd972-a783-512e-b2b3-662b68cf61ce
+
+	measure 'Fatturato Medio per Fattura' = DIVIDE ( [Fatturato Periodo], [Numero Fatture] )
+		formatString: € #,0
+		displayFolder: 0. Base
+		lineageTag: bb48af29-8439-53f7-8730-5811b42a673e
+
+	measure 'Prezzo Medio' = DIVIDE ( [Fatturato Periodo], [Quantità] )
+		formatString: #,0.00
+		displayFolder: 0. Base
+		lineageTag: a96b45b3-b533-56c7-85fb-7549d9f1113b
+
+	/// Se l'utente filtra un periodo usa la selezione, altrimenti mostra l'anno in corso fino alla data di riferimento (YTD).
+	measure 'Fatturato Periodo' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Fine = [Data Riferimento]
+			RETURN
+				IF (
+					FiltroData,
+					[Fatturato],
+					CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+				)
+		formatString: € #,0
+		displayFolder: 1. Periodo e confronto AP
+		lineageTag: e7df7a9b-676d-5740-9dcf-a780f1fa9e8a
+
+	/// Stesso periodo dell'anno precedente. Il periodo selezionato viene troncato alla data di riferimento,
+	/// così un anno in corso si confronta con lo stesso numero di giorni dell'anno prima.
+	measure 'Fatturato Periodo AP' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Rif = [Data Riferimento]
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			RETURN
+				CALCULATE (
+					[Fatturato],
+					DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) )
+				)
+		formatString: € #,0
+		displayFolder: 1. Periodo e confronto AP
+		lineageTag: e37f9388-b4a1-5cf2-b872-0068a2b42eaf
+
+	measure 'Delta vs AP' = [Fatturato Periodo] - [Fatturato Periodo AP]
+		formatString: € #,0
+		displayFolder: 1. Periodo e confronto AP
+		lineageTag: 0c9df40c-129f-54a6-bfbd-8cca4c207f14
+
+	measure 'Var % vs AP' = DIVIDE ( [Delta vs AP], [Fatturato Periodo AP] )
+		formatString: 0.0%
+		displayFolder: 1. Periodo e confronto AP
+		lineageTag: 8aef0523-a260-5087-8f07-4832e25ffaf7
+
+	measure 'Valore Sconti' = SUMX ( Fatture, Fatture[Quantita] * Fatture[Prezzo Listino] * Fatture[Sconto %] / 100 )
+		formatString: € #,0
+		displayFolder: 2. Sconti e omaggi
+		lineageTag: b172804f-9e90-569b-a83b-bae1f3a3d1c2
+
+	measure 'Valore Omaggi' = SUM ( Fatture[Valore Omaggio] )
+		formatString: € #,0
+		displayFolder: 2. Sconti e omaggi
+		lineageTag: 2fff27b2-a644-5296-a0ca-b880d5aa005a
+
+	/// Quota del valore a listino concessa in sconti e merce in omaggio.
+	measure 'Incidenza % Sconti e Omaggi' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Fine = [Data Riferimento]
+			RETURN
+				IF (
+					FiltroData,
+					DIVIDE ( [Valore Sconti] + [Valore Omaggi], [Fatturato] + [Valore Sconti] + [Valore Omaggi] ),
+					CALCULATE ( DIVIDE ( [Valore Sconti] + [Valore Omaggi], [Fatturato] + [Valore Sconti] + [Valore Omaggi] ), DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+				)
+		formatString: 0.0%
+		displayFolder: 2. Sconti e omaggi
+		lineageTag: 23f32bb9-2f7d-5703-aada-bcb9ab0e009c
+
+	measure '% su Totale Agenti' = DIVIDE ( [Fatturato Periodo], CALCULATE ( [Fatturato Periodo], REMOVEFILTERS ( Agenti ) ) )
+		formatString: 0.0%
+		displayFolder: 3. Quote e classifiche
+		lineageTag: 921a44b4-ca15-5ae4-a19a-6a5bedf8df61
+
+	measure 'Incidenza % su Totale Articoli' = DIVIDE ( [Fatturato Periodo], CALCULATE ( [Fatturato Periodo], REMOVEFILTERS ( Articoli ) ) )
+		formatString: 0.0%
+		displayFolder: 3. Quote e classifiche
+		lineageTag: 207bd418-4d00-5372-97a5-d1b8b91955f0
+
+	/// Posizione del cliente per fatturato tra tutti i clienti selezionati, anche se la tabella mostra altre colonne (es. Zona).
+	measure 'Posizione Cliente' =
+			VAR Valore = [Fatturato Periodo]
+			VAR Elenco =
+				CALCULATETABLE (
+					ADDCOLUMNS ( VALUES ( Clienti[Ragione Sociale] ), "@Fatturato", [Fatturato Periodo] ),
+					ALLSELECTED ( Clienti )
+				)
+			RETURN
+				IF (
+					ISINSCOPE ( Clienti[Ragione Sociale] ) && NOT ISBLANK ( Valore ),
+					COUNTROWS ( FILTER ( Elenco, [@Fatturato] > Valore ) ) + 1
+				)
+		formatString: #,0
+		displayFolder: 3. Quote e classifiche
+		lineageTag: cae531af-d82f-57b6-ac8e-9c39b78df690
+
+	/// Peso cumulato del cliente e di tutti quelli che fatturano più di lui (curva di Pareto).
+	/// Il calcolo considera tutti i clienti selezionati, non solo quelli della riga.
+	measure 'Quota Cumulata Cliente %' =
+			VAR Valore = [Fatturato Periodo]
+			VAR Elenco =
+				FILTER (
+					CALCULATETABLE (
+						ADDCOLUMNS ( VALUES ( Clienti[Ragione Sociale] ), "@Fatturato", [Fatturato Periodo] ),
+						ALLSELECTED ( Clienti )
+					),
+					NOT ISBLANK ( [@Fatturato] )
+				)
+			VAR Cumulato = SUMX ( FILTER ( Elenco, [@Fatturato] >= Valore ), [@Fatturato] )
+			VAR Totale = SUMX ( Elenco, [@Fatturato] )
+			RETURN
+				IF ( NOT ISBLANK ( Valore ), DIVIDE ( Cumulato, Totale ) )
+		formatString: 0.0%
+		displayFolder: 3. Quote e classifiche
+		lineageTag: daf7f90d-fffe-5641-8117-3a3e9664c707
+
+	/// A = clienti che fanno l'80% del fatturato, B = fino al 95%, C = il resto.
+	measure 'Classe ABC Cliente' =
+			VAR Quota = [Quota Cumulata Cliente %]
+			RETURN
+				SWITCH ( TRUE (), ISBLANK ( Quota ), BLANK (), Quota <= 0.80, "A", Quota <= 0.95, "B", "C" )
+		displayFolder: 3. Quote e classifiche
+		lineageTag: c625f1da-abad-586c-a3c1-b5e280337306
+
+	/// Clienti la cui prima fattura in assoluto cade nel periodo analizzato.
+	measure 'Nuovi Clienti' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Rif = [Data Riferimento]
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			VAR PrimaFattura =
+				ADDCOLUMNS (
+					VALUES ( Clienti[Codice Cliente] ),
+					"@Prima", CALCULATE ( MIN ( Fatture[Data Fattura] ), REMOVEFILTERS ( Calendario ) )
+				)
+			RETURN
+				COUNTROWS ( FILTER ( PrimaFattura, [@Prima] >= Inizio && [@Prima] <= Fine ) )
+		formatString: #,0
+		displayFolder: 3. Quote e classifiche
+		lineageTag: 72d478fb-df80-5ef5-a616-bffd4e31f6de
+
+	/// Clienti che hanno acquistato nei 12 mesi prima del periodo e non hanno più acquistato nel periodo.
+	measure 'Clienti Persi' =
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+				|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Trimestre] )
+			VAR Rif = [Data Riferimento]
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			VAR Stato =
+				ADDCOLUMNS (
+					VALUES ( Clienti[Codice Cliente] ),
+					"@Prima", CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), Inizio - 1 ) ),
+					"@Periodo", CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], Inizio, Fine ) )
+				)
+			RETURN
+				COUNTROWS ( FILTER ( Stato, [@Prima] > 0 && ISBLANK ( [@Periodo] ) ) )
+		formatString: #,0
+		displayFolder: 3. Quote e classifiche
+		lineageTag: 03615553-ec99-5670-804f-439a6ef1059f
+
+	/// Scadenze non ancora incassate (IVA inclusa).
+	measure 'Credito Aperto' = CALCULATE ( SUM ( Scadenze[Importo] ), ISBLANK ( Scadenze[Data Pagamento] ) )
+		formatString: € #,0
+		displayFolder: 4. Crediti
+		lineageTag: 2b56a81d-ebd8-59c5-a0a5-056de7d63e39
+
+	/// Parte del credito aperto con scadenza già passata alla data di riferimento.
+	measure 'Credito Scaduto' =
+			VAR Rif = [Data Riferimento]
+			RETURN
+				CALCULATE ( SUM ( Scadenze[Importo] ), ISBLANK ( Scadenze[Data Pagamento] ), Scadenze[Data Scadenza] < Rif )
+		formatString: € #,0
+		displayFolder: 4. Crediti
+		lineageTag: 2dd8789b-682a-5a89-9b6a-8651feeef87d
+
+	measure '% Scaduto' = DIVIDE ( [Credito Scaduto], [Credito Aperto] )
+		formatString: 0.0%
+		displayFolder: 4. Crediti
+		lineageTag: fe691fc3-060a-537a-a00e-336ec9135be0
+
+	/// Finestra di fatturato usata per il DSO, scelta con lo slicer (default 365 giorni).
+	measure 'Giorni Base DSO' = SELECTEDVALUE ( 'Giorni DSO'[Giorni], 365 )
+		formatString: #,0
+		displayFolder: 4. Crediti
+		lineageTag: e0eff82f-7fe0-580a-89a8-57fb9fe9642f
+
+	/// Fatturato IVA inclusa degli ultimi N giorni diviso N: serve a tradurre il credito in giorni.
+	measure 'Fatturato Medio Giornaliero' =
+			VAR Fine = [Data Riferimento]
+			VAR N = [Giorni Base DSO]
+			VAR FatturatoIvato =
+				CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], Fine - N + 1, Fine ) ) * 1.22
+			RETURN
+				DIVIDE ( FatturatoIvato, N )
+		formatString: € #,0
+		displayFolder: 4. Crediti
+		lineageTag: 2e8bb40a-5822-5645-b708-17b56aa54730
+
+	/// Days Sales Outstanding: quanti giorni di fatturato sono ancora da incassare.
+	measure 'DSO (giorni)' = DIVIDE ( [Credito Aperto], [Fatturato Medio Giornaliero] )
+		formatString: #,0
+		displayFolder: 4. Crediti
+		lineageTag: 43487161-955e-591b-b497-e5df78929d62
+
+	/// Il credito scaduto espresso in giorni di fatturato.
+	measure 'Giorni di Scaduto' = DIVIDE ( [Credito Scaduto], [Fatturato Medio Giornaliero] )
+		formatString: #,0
+		displayFolder: 4. Crediti
+		lineageTag: 7d4dd051-4291-5143-ae36-7559f4e148b6
+
+	/// Media dei giorni tra scadenza e pagamento sulle scadenze già incassate (negativo = pagamento in anticipo).
+	measure 'Ritardo Medio Incassi (gg)' =
+			AVERAGEX (
+				FILTER ( Scadenze, NOT ISBLANK ( Scadenze[Data Pagamento] ) ),
+				DATEDIFF ( Scadenze[Data Scadenza], Scadenze[Data Pagamento], DAY )
+			)
+		formatString: #,0.0
+		displayFolder: 4. Crediti
+		lineageTag: e30cf192-e8e0-5bc6-9003-806de8427105
+
+	column Colonna
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71bd95ee-bc05-5ccf-aabc-750f8dc90c0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Colonna]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Misure = calculated
+		mode: import
+		source = ROW ( "Colonna", 0 )

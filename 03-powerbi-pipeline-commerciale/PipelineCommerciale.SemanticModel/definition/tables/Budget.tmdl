@@ -1,0 +1,62 @@
+table Budget
+	lineageTag: ef687be1-b42d-584e-aa9d-076fb9a329f6
+
+	column 'Data Mese'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d99ba467-a250-558f-99dd-9c3eb7c5911f
+		summarizeBy: none
+		sourceColumn: Data Mese
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Anno
+		dataType: int64
+		formatString: 0
+		lineageTag: d5d5ae50-5cdd-5241-942f-47939e47fe0d
+		summarizeBy: none
+		sourceColumn: Anno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mese
+		dataType: int64
+		formatString: 0
+		lineageTag: 65cb56d2-2852-5a32-95e1-7cce75faecb9
+		summarizeBy: none
+		sourceColumn: Mese
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linea Prodotto'
+		dataType: string
+		isHidden
+		lineageTag: 2084750d-7c5a-500c-8cbb-3c6309a8591b
+		summarizeBy: none
+		sourceColumn: Linea Prodotto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: decimal
+		formatString: € #,0
+		lineageTag: 336f7a83-c911-57f6-8a5f-3b43f6a4ec5f
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Budget = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "budget.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Data Mese", type date}, {"Anno", Int64.Type}, {"Mese", Int64.Type}, {"Linea Prodotto", type text}, {"Budget", Currency.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

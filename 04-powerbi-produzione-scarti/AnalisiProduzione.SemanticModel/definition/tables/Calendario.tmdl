@@ -1,0 +1,92 @@
+table Calendario
+	dataCategory: Time
+	lineageTag: fc227e32-a1db-5114-a053-911d44b9630c
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 28ba5293-c413-54dd-aaa4-d735ce22a14e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Data]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Anno
+		dataType: int64
+		formatString: 0
+		lineageTag: ccea7428-c364-5efe-9d3e-588ca2fbb216
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Anno]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mese Num'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a5c76f8d-0127-53d6-bde4-ebbc79d25022
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mese Num]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mese
+		dataType: string
+		lineageTag: 091b1309-b763-548c-b120-ba4456f6246e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mese]
+		sortByColumn: 'Mese Num'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Anno Mese'
+		dataType: string
+		lineageTag: 02d8ccf3-e6b5-52d9-a180-9df000631777
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Anno Mese]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: feb2dbc5-6a20-5386-ab75-eb76745ddd4d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Settimana
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e31f80d-6baa-5ace-b88c-e6b0bc6c69c9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Settimana]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = calculated
+		mode: import
+		source =
+				VAR Base = CALENDAR ( DATE ( 2024, 1, 1 ), DATE ( 2026, 12, 31 ) )
+				RETURN
+					ADDCOLUMNS (
+						SELECTCOLUMNS ( Base, "Data", [Date] ),
+						"Anno", YEAR ( [Data] ),
+						"Mese Num", MONTH ( [Data] ),
+						"Mese", FORMAT ( [Data], "mmm" ),
+						"Anno Mese", FORMAT ( [Data], "yyyy-mm" ),
+						"Trimestre", "T" & QUARTER ( [Data] ),
+						"Settimana", WEEKNUM ( [Data], 2 )
+					)
+
+	annotation PBI_Id = bbd2961f-9330-5e66-b191-463dc85bb370

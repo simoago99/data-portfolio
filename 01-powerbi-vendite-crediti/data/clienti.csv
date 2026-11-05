@@ -1,0 +1,321 @@
+Codice Cliente,Ragione Sociale,Provincia,Zona,Canale,Codice Agente,Data Acquisizione,Giorni Pagamento
+C0001,Enoteca Girasole Srl,Napoli,Sud e Isole,Grossisti,AG08,2022-06-01,30
+C0002,Pasticceria San Marco Srl,Padova,Nord-Est,Horeca,AG05,2026-06-20,60
+C0003,Gastronomia Centrale Srl,Bologna,Nord-Est,Horeca,AG04,2023-12-05,30
+C0004,Enoteca Aurora Snc,Genova,Nord-Ovest,Horeca,AG02,2023-01-06,30
+C0005,Pizzeria Corte Antica Srl,Torino,Nord-Ovest,Grossisti,AG03,2022-06-01,30
+C0006,Hotel Bellavista Sas,Palermo,Sud e Isole,Horeca,AG08,2023-01-22,30
+C0007,Bottega Vittoria Srl,Ancona,Centro,Horeca,AG07,2022-06-01,90
+C0008,Ristorante San Marco Spa,Firenze,Centro,Horeca,AG07,2022-06-01,60
+C0009,Bar Mille Gusti Spa,Verona,Nord-Est,Grossisti,AG05,2025-01-07,90
+C0010,Trattoria Miramonti Sas,Napoli,Sud e Isole,Retail,AG08,2022-06-01,60
+C0011,Pizzeria del Borgo Spa,Treviso,Nord-Est,Retail,AG05,2022-06-01,30
+C0012,Enoteca Due Torri Snc,Padova,Nord-Est,Retail,AG05,2023-06-12,30
+C0013,Bottega Belvedere Spa,Padova,Nord-Est,Retail,AG05,2025-01-01,90
+C0014,Gastronomia Belvedere Srl,Novara,Nord-Ovest,Horeca,AG01,2026-02-19,30
+C0015,Caffè Corte Antica Srl,Varese,Nord-Ovest,Horeca,AG02,2022-06-01,90
+C0016,Minimarket Ai Pini Srl,Treviso,Nord-Est,Retail,AG04,2022-06-01,30
+C0017,Minimarket Il Portico Snc,Bari,Sud e Isole,Retail,AG08,2024-06-14,60
+C0018,Enoteca Vittoria Sas,Varese,Nord-Ovest,Horeca,AG01,2022-06-01,90
+C0019,Pasticceria Ai Pini Srl,Bari,Sud e Isole,Horeca,AG08,2023-07-31,30
+C0020,Market Riviera Spa,Napoli,Sud e Isole,Retail,AG08,2022-06-01,30
+C0021,Pasticceria La Piazzetta Spa,Bergamo,Nord-Ovest,Horeca,AG02,2022-06-01,90
+C0022,Market Primavera Sas,Firenze,Centro,Grossisti,AG06,2022-06-01,30
+C0023,Minimarket del Borgo Sas,Torino,Nord-Ovest,Horeca,AG02,2025-07-10,60
+C0024,Bar Il Faro Srl,Perugia,Centro,Horeca,AG06,2022-06-01,60
+C0025,Hotel Primavera Srl,Roma,Centro,Retail,AG07,2022-06-01,30
+C0026,Enoteca Ai Pini Snc,Genova,Nord-Ovest,Horeca,AG03,2022-06-01,60
+C0027,Gastronomia La Fontana Srl,Varese,Nord-Ovest,Horeca,AG03,2022-06-01,60
+C0028,Hotel Le Querce Srl,Cagliari,Sud e Isole,Retail,AG08,2022-06-01,30
+C0029,Market Aurora Srl,Padova,Nord-Est,Retail,AG04,2024-03-14,90
+C0030,Hotel Corte Antica Spa,Bari,Sud e Isole,Horeca,AG08,2022-06-01,30
+C0031,Bottega Miramonti Sas,Roma,Centro,Horeca,AG06,2026-06-01,30
+C0032,Ristorante Centrale Srl,Ancona,Centro,Retail,AG07,2025-12-03,60
+C0033,Enoteca San Marco Sas,Perugia,Centro,Grossisti,AG06,2022-06-01,90
+C0034,Market Bellavista Sas,Novara,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0035,Pasticceria Al Ponte Srl,Genova,Nord-Ovest,Horeca,AG02,2023-03-08,30
+C0036,Trattoria La Piazzetta Spa,Padova,Nord-Est,Horeca,AG04,2022-06-01,60
+C0037,Hotel Vittoria Srl,Bologna,Nord-Est,Horeca,AG05,2022-06-01,90
+C0038,Caffè Girasole Snc,Milano,Nord-Ovest,Horeca,AG01,2023-10-23,30
+C0039,Gastronomia Il Glicine Srl,Treviso,Nord-Est,Retail,AG04,2025-12-18,30
+C0040,Bar Aurora Srl,Torino,Nord-Ovest,Horeca,AG02,2026-01-20,60
+C0041,Gastronomia Primavera Spa,Perugia,Centro,Horeca,AG06,2022-06-01,30
+C0042,Bottega del Borgo Srl,Roma,Centro,Retail,AG07,2023-11-20,30
+C0043,Caffè Vittoria Srl,Palermo,Sud e Isole,Retail,AG08,2025-03-02,30
+C0044,Pizzeria Le Querce Sas,Perugia,Centro,Horeca,AG06,2022-06-01,60
+C0045,Ristorante Ai Pini Sas,Genova,Nord-Ovest,Retail,AG02,2023-08-25,60
+C0046,Gastronomia Due Torri Sas,Cagliari,Sud e Isole,Retail,AG08,2022-06-01,90
+C0047,Hotel Del Sole Snc,Verona,Nord-Est,Retail,AG05,2022-06-01,60
+C0048,Ristorante Aurora Srl,Brescia,Nord-Ovest,Horeca,AG01,2022-06-01,60
+C0049,Pasticceria Due Torri Srl,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,90
+C0050,Caffè La Fontana Srl,Genova,Nord-Ovest,Grossisti,AG03,2022-06-01,60
+C0051,Pasticceria Aurora Spa,Varese,Nord-Ovest,Horeca,AG03,2024-11-11,60
+C0052,Pasticceria Mille Gusti Srl,Padova,Nord-Est,Horeca,AG05,2025-07-15,90
+C0053,Gastronomia Aurora Spa,Ancona,Centro,Horeca,AG06,2022-06-01,30
+C0054,Pizzeria Il Faro Snc,Torino,Nord-Ovest,Retail,AG03,2024-12-24,60
+C0055,Pizzeria Due Torri Srl,Padova,Nord-Est,Grossisti,AG05,2023-12-08,60
+C0056,Bar San Marco Snc,Como,Nord-Ovest,Horeca,AG03,2022-06-01,30
+C0057,Hotel Aurora Snc,Roma,Centro,Grossisti,AG06,2022-06-01,60
+C0058,Bottega Aurora Srl,Padova,Nord-Est,Horeca,AG05,2022-06-01,30
+C0059,Pizzeria Al Ponte Srl,Brescia,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0060,Ristorante Bellavista Sas,Novara,Nord-Ovest,Retail,AG02,2024-06-19,60
+C0061,Bottega Due Torri Srl,Treviso,Nord-Est,Horeca,AG04,2022-06-01,30
+C0062,Enoteca Riviera Srl,Roma,Centro,Horeca,AG07,2022-06-01,60
+C0063,Caffè Aurora Snc,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,90
+C0064,Caffè Belvedere Snc,Padova,Nord-Est,Grossisti,AG05,2022-06-01,90
+C0065,Trattoria Bellavista Sas,Torino,Nord-Ovest,Retail,AG01,2023-02-14,30
+C0066,Gastronomia Del Sole Srl,Napoli,Sud e Isole,Grossisti,AG08,2022-06-01,30
+C0067,Trattoria Aurora Sas,Firenze,Centro,Retail,AG07,2022-06-01,30
+C0068,Minimarket Aurora Spa,Roma,Centro,Horeca,AG07,2022-06-01,30
+C0069,Enoteca Corte Antica Snc,Como,Nord-Ovest,Retail,AG02,2022-06-01,90
+C0070,Hotel Girasole Spa,Brescia,Nord-Ovest,Horeca,AG01,2022-06-01,60
+C0071,Pizzeria San Marco Snc,Ancona,Centro,Horeca,AG07,2022-06-01,30
+C0072,Pizzeria Aurora Sas,Napoli,Sud e Isole,Retail,AG08,2022-06-01,90
+C0073,Trattoria Stella Sas,Padova,Nord-Est,Retail,AG04,2022-06-01,30
+C0074,Caffè Mille Gusti Snc,Ancona,Centro,Horeca,AG06,2026-02-10,30
+C0075,Market Belvedere Sas,Napoli,Sud e Isole,Horeca,AG08,2025-04-19,30
+C0076,Pizzeria Il Glicine Spa,Verona,Nord-Est,Retail,AG05,2024-05-19,60
+C0077,Bar Belvedere Spa,Bari,Sud e Isole,Retail,AG08,2023-07-24,60
+C0078,Ristorante Belvedere Srl,Brescia,Nord-Ovest,Retail,AG02,2025-05-21,30
+C0079,Enoteca Il Faro Snc,Bergamo,Nord-Ovest,Horeca,AG03,2022-06-01,90
+C0080,Minimarket Centrale Sas,Roma,Centro,Horeca,AG06,2022-06-01,90
+C0081,Caffè Del Sole Srl,Firenze,Centro,Horeca,AG07,2022-06-01,90
+C0082,Ristorante Corte Antica Srl,Como,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0083,Caffè La Piazzetta Snc,Napoli,Sud e Isole,Retail,AG08,2023-12-05,30
+C0084,Pasticceria Stella Sas,Novara,Nord-Ovest,Horeca,AG03,2022-06-01,90
+C0085,Pasticceria Belvedere Snc,Ancona,Centro,Horeca,AG07,2025-05-20,30
+C0086,Hotel Belvedere Spa,Milano,Nord-Ovest,Horeca,AG01,2023-09-12,60
+C0087,Trattoria Belvedere Sas,Ancona,Centro,Retail,AG06,2022-06-01,60
+C0088,Ristorante Miramonti Srl,Ancona,Centro,Retail,AG07,2026-01-01,30
+C0089,Market Miramonti Sas,Ancona,Centro,Horeca,AG07,2022-06-01,60
+C0090,Minimarket Belvedere Spa,Firenze,Centro,Horeca,AG07,2026-03-11,90
+C0091,Ristorante del Borgo Srl,Padova,Nord-Est,Retail,AG04,2022-06-01,60
+C0092,Minimarket Corte Antica Srl,Roma,Centro,Horeca,AG07,2022-06-01,60
+C0093,Bar Primavera Sas,Bergamo,Nord-Ovest,Retail,AG03,2022-06-01,90
+C0094,Enoteca La Piazzetta Srl,Ancona,Centro,Horeca,AG06,2022-06-01,60
+C0095,Enoteca del Borgo Srl,Treviso,Nord-Est,Horeca,AG04,2022-06-01,60
+C0096,Pizzeria Belvedere Srl,Padova,Nord-Est,Grossisti,AG04,2025-07-25,90
+C0097,Enoteca Belvedere Snc,Bologna,Nord-Est,Horeca,AG05,2025-04-02,60
+C0098,Market Centrale Srl,Treviso,Nord-Est,Horeca,AG04,2022-06-01,30
+C0099,Bar Centrale Sas,Milano,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0100,Pasticceria Centrale Snc,Como,Nord-Ovest,Horeca,AG03,2022-06-01,30
+C0101,Hotel Al Ponte Snc,Bergamo,Nord-Ovest,Horeca,AG01,2022-06-01,60
+C0102,Hotel Centrale Srl,Como,Nord-Ovest,Horeca,AG03,2024-10-22,60
+C0103,Trattoria Mille Gusti Sas,Padova,Nord-Est,Horeca,AG05,2022-06-01,60
+C0104,Bottega Centrale Sas,Roma,Centro,Horeca,AG07,2022-06-01,30
+C0105,Bottega Riviera Snc,Firenze,Centro,Retail,AG07,2022-06-01,60
+C0106,Bottega Le Querce Srl,Padova,Nord-Est,Retail,AG05,2022-06-01,90
+C0107,Caffè Centrale Srl,Napoli,Sud e Isole,Horeca,AG08,2022-06-01,30
+C0108,Trattoria Centrale Spa,Treviso,Nord-Est,Horeca,AG05,2025-09-26,60
+C0109,Market Vittoria Srl,Varese,Nord-Ovest,Horeca,AG03,2026-04-27,60
+C0110,Bar Due Torri Srl,Ancona,Centro,Retail,AG06,2024-12-28,60
+C0111,Bar Bellavista Snc,Trento,Nord-Est,Retail,AG04,2024-07-21,30
+C0112,Pasticceria Le Querce Sas,Firenze,Centro,Horeca,AG07,2022-06-01,60
+C0113,Ristorante Del Sole Snc,Treviso,Nord-Est,Horeca,AG04,2025-09-21,90
+C0114,Pizzeria Centrale Srl,Treviso,Nord-Est,Horeca,AG05,2026-02-28,60
+C0115,Minimarket Miramonti Snc,Varese,Nord-Ovest,Horeca,AG03,2025-06-12,90
+C0116,Minimarket Due Torri Spa,Treviso,Nord-Est,Retail,AG05,2026-01-10,90
+C0117,Pizzeria Mille Gusti Spa,Ancona,Centro,Horeca,AG06,2026-01-04,30
+C0118,Enoteca Centrale Snc,Brescia,Nord-Ovest,Horeca,AG02,2025-10-16,60
+C0119,Ristorante La Fontana Srl,Trento,Nord-Est,Horeca,AG04,2022-06-01,60
+C0120,Minimarket Girasole Sas,Milano,Nord-Ovest,Horeca,AG02,2023-05-08,90
+C0121,Ristorante Al Ponte Snc,Genova,Nord-Ovest,Horeca,AG03,2022-06-01,30
+C0122,Bar Riviera Spa,Padova,Nord-Est,Retail,AG05,2022-06-01,60
+C0123,Market del Borgo Snc,Cagliari,Sud e Isole,Horeca,AG08,2024-07-04,90
+C0124,Bar Le Querce Sas,Novara,Nord-Ovest,Grossisti,AG03,2025-08-07,30
+C0125,Bar del Borgo Sas,Bergamo,Nord-Ovest,Horeca,AG03,2024-08-05,60
+C0126,Market Il Portico Srl,Verona,Nord-Est,Retail,AG05,2022-06-01,30
+C0127,Bar Del Sole Spa,Cagliari,Sud e Isole,Grossisti,AG08,2023-09-26,90
+C0128,Pasticceria del Borgo Srl,Napoli,Sud e Isole,Grossisti,AG08,2026-06-04,90
+C0129,Gastronomia Ai Pini Srl,Milano,Nord-Ovest,Retail,AG02,2022-06-01,30
+C0130,Gastronomia del Borgo Srl,Novara,Nord-Ovest,Retail,AG02,2022-06-01,60
+C0131,Hotel del Borgo Srl,Napoli,Sud e Isole,Retail,AG08,2022-06-01,30
+C0132,Pizzeria La Piazzetta Spa,Varese,Nord-Ovest,Retail,AG02,2025-07-07,60
+C0133,Caffè del Borgo Sas,Napoli,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0134,Trattoria del Borgo Srl,Bergamo,Nord-Ovest,Horeca,AG02,2026-02-07,90
+C0135,Market Girasole Sas,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,30
+C0136,Trattoria Corte Antica Snc,Brescia,Nord-Ovest,Retail,AG03,2024-05-18,30
+C0137,Pasticceria Il Faro Snc,Padova,Nord-Est,Horeca,AG04,2022-06-01,60
+C0138,Bar Girasole Srl,Firenze,Centro,Horeca,AG07,2024-02-12,60
+C0139,Ristorante Girasole Snc,Como,Nord-Ovest,Retail,AG01,2022-06-01,60
+C0140,Pasticceria Girasole Snc,Treviso,Nord-Est,Horeca,AG05,2022-06-01,30
+C0141,Caffè Il Portico Srl,Bologna,Nord-Est,Horeca,AG04,2024-12-30,30
+C0142,Minimarket Bellavista Srl,Ancona,Centro,Horeca,AG06,2025-01-11,90
+C0143,Gastronomia Girasole Snc,Cagliari,Sud e Isole,Horeca,AG08,2024-05-06,30
+C0144,Bottega Girasole Srl,Firenze,Centro,Horeca,AG07,2022-06-01,30
+C0145,Market Mille Gusti Srl,Verona,Nord-Est,Horeca,AG04,2022-06-01,90
+C0146,Trattoria Girasole Spa,Verona,Nord-Est,Horeca,AG05,2022-06-01,30
+C0147,Pizzeria Girasole Spa,Verona,Nord-Est,Horeca,AG05,2022-06-01,60
+C0148,Bar Il Portico Sas,Napoli,Sud e Isole,Horeca,AG08,2026-04-09,30
+C0149,Enoteca Primavera Srl,Brescia,Nord-Ovest,Retail,AG02,2024-10-05,90
+C0150,Ristorante Il Portico Spa,Torino,Nord-Ovest,Horeca,AG01,2024-08-20,60
+C0151,Pasticceria Il Portico Sas,Genova,Nord-Ovest,Grossisti,AG02,2023-03-28,90
+C0152,Gastronomia Il Portico Snc,Milano,Nord-Ovest,Grossisti,AG01,2023-09-09,30
+C0153,Hotel Ai Pini Spa,Como,Nord-Ovest,Horeca,AG02,2024-03-07,60
+C0154,Hotel Il Portico Srl,Varese,Nord-Ovest,Horeca,AG02,2022-06-01,60
+C0155,Bottega Il Portico Srl,Ancona,Centro,Horeca,AG06,2022-06-01,30
+C0156,Bottega Primavera Spa,Perugia,Centro,Retail,AG07,2024-05-18,30
+C0157,Trattoria Il Portico Sas,Roma,Centro,Retail,AG06,2025-09-08,30
+C0158,Pizzeria Il Portico Srl,Padova,Nord-Est,Retail,AG05,2022-06-01,90
+C0159,Enoteca Il Portico Snc,Perugia,Centro,Horeca,AG07,2022-06-01,60
+C0160,Market La Piazzetta Snc,Torino,Nord-Ovest,Retail,AG01,2023-07-27,60
+C0161,Pasticceria Del Sole Snc,Bari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0162,Bar La Piazzetta Spa,Bologna,Nord-Est,Retail,AG05,2022-06-01,60
+C0163,Gastronomia Riviera Srl,Palermo,Sud e Isole,Horeca,AG08,2023-03-01,60
+C0164,Gastronomia Il Faro Snc,Torino,Nord-Ovest,Retail,AG01,2024-03-09,60
+C0165,Bar Vittoria Srl,Bologna,Nord-Est,Retail,AG04,2022-06-01,60
+C0166,Ristorante La Piazzetta Sas,Roma,Centro,Horeca,AG07,2026-05-04,30
+C0167,Caffè Due Torri Spa,Bologna,Nord-Est,Retail,AG05,2022-06-01,90
+C0168,Gastronomia La Piazzetta Srl,Padova,Nord-Est,Horeca,AG04,2023-11-08,90
+C0169,Hotel La Piazzetta Sas,Torino,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0170,Bottega La Piazzetta Srl,Verona,Nord-Est,Horeca,AG04,2022-06-01,60
+C0171,Minimarket La Piazzetta Spa,Bergamo,Nord-Ovest,Grossisti,AG02,2022-06-01,30
+C0172,Market Le Querce Sas,Brescia,Nord-Ovest,Horeca,AG01,2022-06-01,90
+C0173,Minimarket Stella Spa,Roma,Centro,Grossisti,AG06,2025-01-16,90
+C0174,Enoteca Stella Srl,Firenze,Centro,Retail,AG07,2022-06-01,90
+C0175,Ristorante Le Querce Sas,Trento,Nord-Est,Retail,AG04,2022-06-01,30
+C0176,Caffè Stella Srl,Genova,Nord-Ovest,Retail,AG03,2022-06-01,30
+C0177,Gastronomia Le Querce Srl,Cagliari,Sud e Isole,Retail,AG08,2024-09-02,30
+C0178,Caffè Le Querce Srl,Varese,Nord-Ovest,Grossisti,AG03,2023-09-16,30
+C0179,Trattoria Le Querce Srl,Genova,Nord-Ovest,Horeca,AG03,2026-05-30,30
+C0180,Minimarket Le Querce Srl,Como,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0181,Enoteca Le Querce Srl,Genova,Nord-Ovest,Horeca,AG03,2022-06-01,90
+C0182,Bar Miramonti Snc,Cagliari,Sud e Isole,Retail,AG08,2022-06-01,30
+C0183,Gastronomia Miramonti Snc,Genova,Nord-Ovest,Horeca,AG03,2022-06-01,30
+C0184,Pasticceria Miramonti Snc,Palermo,Sud e Isole,Retail,AG08,2024-08-21,90
+C0185,Hotel Miramonti Spa,Bologna,Nord-Est,Retail,AG04,2024-08-03,60
+C0186,Caffè Miramonti Snc,Roma,Centro,Horeca,AG07,2022-06-01,60
+C0187,Minimarket Al Ponte Srl,Padova,Nord-Est,Horeca,AG04,2022-06-01,60
+C0188,Pizzeria Miramonti Srl,Bergamo,Nord-Ovest,Retail,AG03,2023-02-27,90
+C0189,Enoteca Miramonti Srl,Ancona,Centro,Retail,AG06,2022-06-01,60
+C0190,Bar Stella Srl,Cagliari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0191,Ristorante Primavera Srl,Bergamo,Nord-Ovest,Retail,AG03,2022-06-01,60
+C0192,Pizzeria Bellavista Srl,Ancona,Centro,Grossisti,AG06,2022-06-01,60
+C0193,Pasticceria Primavera Srl,Bergamo,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0194,Caffè Primavera Spa,Perugia,Centro,Horeca,AG06,2022-06-01,60
+C0195,Trattoria Primavera Snc,Ancona,Centro,Horeca,AG06,2022-06-01,30
+C0196,Minimarket Primavera Snc,Padova,Nord-Est,Retail,AG04,2024-09-24,60
+C0197,Hotel Il Glicine Srl,Perugia,Centro,Horeca,AG06,2022-06-01,30
+C0198,Bottega Al Ponte Spa,Bergamo,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0199,Pizzeria Primavera Spa,Varese,Nord-Ovest,Retail,AG03,2023-10-26,30
+C0200,Market Del Sole Sas,Como,Nord-Ovest,Horeca,AG02,2023-11-19,90
+C0201,Bottega Stella Snc,Padova,Nord-Est,Retail,AG05,2022-06-01,30
+C0202,Enoteca Il Glicine Snc,Bari,Sud e Isole,Retail,AG08,2022-06-01,60
+C0203,Bottega Del Sole Srl,Como,Nord-Ovest,Horeca,AG03,2024-02-04,90
+C0204,Trattoria Del Sole Srl,Padova,Nord-Est,Horeca,AG04,2022-06-01,30
+C0205,Minimarket Del Sole Snc,Roma,Centro,Horeca,AG06,2022-06-01,60
+C0206,Pizzeria Del Sole Srl,Novara,Nord-Ovest,Horeca,AG02,2026-01-24,30
+C0207,Minimarket San Marco Srl,Perugia,Centro,Horeca,AG06,2022-06-01,30
+C0208,Caffè Riviera Snc,Brescia,Nord-Ovest,Grossisti,AG01,2026-02-25,60
+C0209,Enoteca Del Sole Sas,Ancona,Centro,Horeca,AG07,2022-06-01,90
+C0210,Hotel Mille Gusti Srl,Trento,Nord-Est,Horeca,AG05,2026-06-11,30
+C0211,Market Stella Spa,Treviso,Nord-Est,Retail,AG05,2022-06-01,60
+C0212,Enoteca La Fontana Snc,Torino,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0213,Ristorante Stella Snc,Padova,Nord-Est,Grossisti,AG05,2022-06-01,60
+C0214,Gastronomia Stella Sas,Napoli,Sud e Isole,Retail,AG08,2022-06-01,60
+C0215,Hotel Stella Snc,Milano,Nord-Ovest,Horeca,AG01,2025-01-21,60
+C0216,Pizzeria Stella Sas,Perugia,Centro,Horeca,AG06,2022-06-01,60
+C0217,Ristorante Vittoria Spa,Bologna,Nord-Est,Grossisti,AG04,2022-06-01,30
+C0218,Pasticceria Vittoria Snc,Perugia,Centro,Retail,AG07,2023-06-25,60
+C0219,Gastronomia Vittoria Snc,Firenze,Centro,Grossisti,AG06,2026-04-17,60
+C0220,Trattoria Vittoria Srl,Padova,Nord-Est,Horeca,AG04,2022-06-01,60
+C0221,Minimarket Vittoria Spa,Brescia,Nord-Ovest,Retail,AG02,2022-06-01,30
+C0222,Ristorante Il Faro Sas,Firenze,Centro,Retail,AG06,2024-12-07,60
+C0223,Minimarket Il Faro Sas,Como,Nord-Ovest,Horeca,AG01,2024-06-26,60
+C0224,Pizzeria Vittoria Spa,Trento,Nord-Est,Retail,AG04,2023-05-04,30
+C0225,Ristorante Riviera Srl,Varese,Nord-Ovest,Retail,AG01,2025-11-08,30
+C0226,Pasticceria Riviera Srl,Firenze,Centro,Horeca,AG06,2025-12-16,60
+C0227,Hotel Riviera Srl,Firenze,Centro,Horeca,AG06,2022-06-01,60
+C0228,Trattoria Riviera Snc,Varese,Nord-Ovest,Retail,AG02,2022-06-01,30
+C0229,Bar Il Glicine Spa,Perugia,Centro,Horeca,AG07,2022-06-01,90
+C0230,Bottega Bellavista Srl,Verona,Nord-Est,Horeca,AG04,2024-11-23,60
+C0231,Minimarket Riviera Spa,Ancona,Centro,Horeca,AG07,2024-10-27,60
+C0232,Trattoria Al Ponte Sas,Milano,Nord-Ovest,Horeca,AG03,2022-06-01,60
+C0233,Pizzeria Riviera Snc,Torino,Nord-Ovest,Grossisti,AG01,2022-06-01,60
+C0234,Market Corte Antica Spa,Bologna,Nord-Est,Retail,AG04,2022-06-01,60
+C0235,Bar Corte Antica Snc,Torino,Nord-Ovest,Horeca,AG01,2024-08-03,90
+C0236,Pasticceria Corte Antica Srl,Brescia,Nord-Ovest,Grossisti,AG01,2022-06-01,60
+C0237,Bottega Il Faro Spa,Firenze,Centro,Retail,AG06,2022-06-01,60
+C0238,Gastronomia Corte Antica Spa,Torino,Nord-Ovest,Horeca,AG01,2022-06-01,60
+C0239,Bottega Corte Antica Spa,Roma,Centro,Retail,AG06,2022-06-01,60
+C0240,Market Ai Pini Snc,Como,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0241,Bar Ai Pini Sas,Torino,Nord-Ovest,Grossisti,AG03,2022-06-01,60
+C0242,Bottega Ai Pini Sas,Trento,Nord-Est,Retail,AG04,2022-06-01,60
+C0243,Caffè Ai Pini Snc,Ancona,Centro,Retail,AG07,2022-06-01,90
+C0244,Trattoria Ai Pini Spa,Torino,Nord-Ovest,Horeca,AG02,2022-06-01,60
+C0245,Pizzeria Ai Pini Spa,Brescia,Nord-Ovest,Retail,AG03,2022-06-01,60
+C0246,Ristorante Il Glicine Sas,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,90
+C0247,Enoteca Al Ponte Sas,Cagliari,Sud e Isole,Horeca,AG08,2025-12-02,60
+C0248,Market Due Torri Srl,Trento,Nord-Est,Horeca,AG04,2022-06-01,30
+C0249,Gastronomia Mille Gusti Sas,Padova,Nord-Est,Retail,AG05,2022-06-01,30
+C0250,Ristorante Due Torri Sas,Genova,Nord-Ovest,Horeca,AG03,2022-06-01,30
+C0251,Caffè Bellavista Srl,Trento,Nord-Est,Grossisti,AG04,2022-06-01,30
+C0252,Caffè Al Ponte Sas,Trento,Nord-Est,Retail,AG05,2022-06-01,60
+C0253,Hotel Due Torri Srl,Brescia,Nord-Ovest,Horeca,AG02,2022-06-01,60
+C0254,Trattoria Due Torri Srl,Milano,Nord-Ovest,Horeca,AG02,2023-09-22,60
+C0255,Market La Fontana Snc,Torino,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0256,Bar La Fontana Snc,Cagliari,Sud e Isole,Retail,AG08,2022-06-01,60
+C0257,Pasticceria La Fontana Srl,Verona,Nord-Est,Retail,AG05,2022-06-01,30
+C0258,Hotel La Fontana Srl,Bologna,Nord-Est,Horeca,AG04,2022-06-01,90
+C0259,Bottega La Fontana Sas,Padova,Nord-Est,Retail,AG05,2022-06-01,30
+C0260,Trattoria La Fontana Srl,Ancona,Centro,Horeca,AG07,2026-02-18,60
+C0261,Minimarket La Fontana Srl,Varese,Nord-Ovest,Retail,AG03,2025-07-17,30
+C0262,Pizzeria La Fontana Snc,Varese,Nord-Ovest,Grossisti,AG02,2022-06-01,60
+C0263,Market Il Faro Srl,Bergamo,Nord-Ovest,Retail,AG02,2022-06-01,60
+C0264,Hotel Il Faro Sas,Bologna,Nord-Est,Retail,AG04,2022-06-01,60
+C0265,Caffè Il Faro Spa,Roma,Centro,Retail,AG07,2022-06-01,30
+C0266,Trattoria Il Faro Srl,Bologna,Nord-Est,Horeca,AG05,2025-12-16,90
+C0267,Ristorante Mille Gusti Sas,Padova,Nord-Est,Horeca,AG05,2022-06-01,60
+C0268,Bottega Mille Gusti Srl,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0269,Bottega Il Glicine Srl,Torino,Nord-Ovest,Horeca,AG02,2025-04-10,90
+C0270,Minimarket Mille Gusti Spa,Trento,Nord-Est,Retail,AG05,2022-06-01,90
+C0271,Gastronomia Bellavista Snc,Treviso,Nord-Est,Retail,AG04,2022-06-01,30
+C0272,Enoteca Mille Gusti Srl,Padova,Nord-Est,Retail,AG04,2024-07-28,30
+C0273,Market San Marco Spa,Ancona,Centro,Horeca,AG07,2022-06-01,30
+C0274,Gastronomia San Marco Sas,Bergamo,Nord-Ovest,Retail,AG01,2022-06-01,30
+C0275,Hotel San Marco Snc,Cagliari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0276,Bottega San Marco Sas,Brescia,Nord-Ovest,Horeca,AG03,2025-06-25,90
+C0277,Caffè San Marco Sas,Treviso,Nord-Est,Retail,AG04,2022-06-01,90
+C0278,Trattoria San Marco Srl,Bologna,Nord-Est,Grossisti,AG05,2022-06-01,60
+C0279,Market Al Ponte Sas,Napoli,Sud e Isole,Retail,AG08,2022-06-01,60
+C0280,Bar Al Ponte Spa,Padova,Nord-Est,Horeca,AG04,2022-06-01,90
+C0281,Gastronomia Al Ponte Snc,Bergamo,Nord-Ovest,Retail,AG02,2025-08-12,90
+C0282,Market Il Glicine Spa,Milano,Nord-Ovest,Horeca,AG02,2022-06-01,30
+C0283,Pasticceria Il Glicine Snc,Genova,Nord-Ovest,Retail,AG02,2022-06-01,60
+C0284,Caffè Il Glicine Spa,Napoli,Sud e Isole,Retail,AG08,2022-06-01,90
+C0285,Trattoria Il Glicine Srl,Milano,Nord-Ovest,Horeca,AG02,2025-07-08,30
+C0286,Minimarket Il Glicine Spa,Bari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0287,Pasticceria Bellavista Srl,Treviso,Nord-Est,Horeca,AG04,2024-03-01,90
+C0288,Enoteca Bellavista Sas,Como,Nord-Ovest,Grossisti,AG02,2023-11-09,90
+C0289,Market Al Castello Srl,Brescia,Nord-Ovest,Horeca,AG03,2022-06-01,90
+C0290,Bar Al Castello Snc,Treviso,Nord-Est,Retail,AG05,2023-07-25,60
+C0291,Ristorante Al Castello Sas,Brescia,Nord-Ovest,Retail,AG02,2023-02-16,30
+C0292,Pasticceria Al Castello Spa,Como,Nord-Ovest,Retail,AG03,2022-06-01,30
+C0293,Gastronomia Al Castello Srl,Firenze,Centro,Horeca,AG07,2023-04-05,60
+C0294,Hotel Al Castello Srl,Roma,Centro,Grossisti,AG06,2022-06-01,60
+C0295,Bottega Al Castello Srl,Como,Nord-Ovest,Horeca,AG03,2023-01-04,60
+C0296,Caffè Al Castello Spa,Bergamo,Nord-Ovest,Retail,AG01,2025-09-19,60
+C0297,Trattoria Al Castello Srl,Bergamo,Nord-Ovest,Retail,AG01,2022-06-01,60
+C0298,Minimarket Al Castello Srl,Firenze,Centro,Retail,AG07,2024-10-23,60
+C0299,Pizzeria Al Castello Snc,Perugia,Centro,Grossisti,AG06,2022-06-01,30
+C0300,Enoteca Al Castello Spa,Perugia,Centro,Horeca,AG07,2024-09-18,30
+C0301,Market Arcobaleno Sas,Palermo,Sud e Isole,Horeca,AG08,2024-07-30,30
+C0302,Bar Arcobaleno Sas,Ancona,Centro,Horeca,AG07,2022-06-01,30
+C0303,Ristorante Arcobaleno Spa,Brescia,Nord-Ovest,Horeca,AG03,2022-06-01,90
+C0304,Pasticceria Arcobaleno Snc,Como,Nord-Ovest,Horeca,AG03,2022-06-01,60
+C0305,Gastronomia Arcobaleno Srl,Trento,Nord-Est,Horeca,AG05,2022-06-01,30
+C0306,Hotel Arcobaleno Srl,Palermo,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0307,Bottega Arcobaleno Srl,Cagliari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0308,Caffè Arcobaleno Spa,Novara,Nord-Ovest,Horeca,AG01,2022-06-01,30
+C0309,Trattoria Arcobaleno Srl,Novara,Nord-Ovest,Retail,AG03,2022-06-01,30
+C0310,Minimarket Arcobaleno Srl,Milano,Nord-Ovest,Retail,AG01,2023-06-10,30
+C0311,Pizzeria Arcobaleno Snc,Como,Nord-Ovest,Horeca,AG01,2023-08-22,60
+C0312,Enoteca Arcobaleno Snc,Treviso,Nord-Est,Horeca,AG04,2026-05-01,30
+C0313,Market Belsito Srl,Treviso,Nord-Est,Horeca,AG04,2022-06-01,30
+C0314,Bar Belsito Spa,Genova,Nord-Ovest,Retail,AG03,2024-09-07,30
+C0315,Ristorante Belsito Sas,Brescia,Nord-Ovest,Horeca,AG01,2022-06-01,60
+C0316,Pasticceria Belsito Srl,Napoli,Sud e Isole,Horeca,AG08,2022-06-01,30
+C0317,Gastronomia Belsito Srl,Padova,Nord-Est,Horeca,AG05,2022-06-01,90
+C0318,Hotel Belsito Sas,Ancona,Centro,Horeca,AG07,2023-07-28,30
+C0319,Bottega Belsito Snc,Cagliari,Sud e Isole,Horeca,AG08,2022-06-01,60
+C0320,Caffè Belsito Srl,Brescia,Nord-Ovest,Retail,AG02,2022-06-01,60

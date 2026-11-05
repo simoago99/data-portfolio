@@ -1,0 +1,138 @@
+-- Misure DAX del progetto "Reparto produzione: scarti e produttività"
+-- Generato dal modello semantico: AnalisiProduzione.SemanticModel/definition/tables/_Misure.tmdl
+
+
+-- ==================== 0. Base ====================
+
+[Data Riferimento] =
+    CALCULATE ( MAX ( Produzione[Data] ), REMOVEFILTERS () )
+
+[Ore Lavorate] =
+    SUM ( Produzione[Ore Lavorate] )
+
+-- Materia prima caricata in macchina.
+[Consumo Kg] =
+    SUM ( Produzione[Consumo Kg] )
+
+-- Prodotto finito conforme.
+[Produzione Kg] =
+    SUM ( Produzione[Produzione Kg] )
+
+[Scarto Kg] =
+    SUM ( Produzione[Scarto Kg] )
+
+-- Bordi tagliati in linea (recuperabili).
+[Rifili Kg] =
+    SUM ( Produzione[Rifili Kg] )
+
+[Metri Quadri] =
+    SUM ( Produzione[Metri Quadri] )
+
+[Bobine Prodotte] =
+    SUM ( Produzione[Bobine OK] )
+
+[Nr. Ordini di Produzione] =
+    DISTINCTCOUNT ( Produzione[Ordine Produzione] )
+
+
+-- ==================== 1. KPI di reparto ====================
+
+-- Scarto sul consumo di materia prima.
+[% Scarto] =
+    DIVIDE ( [Scarto Kg], [Consumo Kg] )
+
+[% Rifili] =
+    DIVIDE ( [Rifili Kg], [Consumo Kg] )
+
+-- Prodotto conforme sul consumo: la parte di materia prima che diventa prodotto vendibile.
+[% Resa] =
+    DIVIDE ( [Produzione Kg], [Consumo Kg] )
+
+[Consumo kg/h] =
+    DIVIDE ( [Consumo Kg], [Ore Lavorate] )
+
+[Produttività Netta kg/h] =
+    DIVIDE ( [Produzione Kg], [Ore Lavorate] )
+
+[Produttività m²/h] =
+    DIVIDE ( [Metri Quadri], [Ore Lavorate] )
+
+[Kg Medi per Bobina] =
+    DIVIDE ( [Produzione Kg], [Bobine Prodotte] )
+
+
+-- ==================== 2. Confronto anno precedente ====================
+
+[Scarto Kg Periodo] =
+    VAR Rif = [Data Riferimento]
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+            || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    RETURN
+        CALCULATE ( [Scarto Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, 0 ), EDATE ( Fine, 0 ) ) )
+
+[Consumo Kg Periodo] =
+    VAR Rif = [Data Riferimento]
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+            || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    RETURN
+        CALCULATE ( [Consumo Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, 0 ), EDATE ( Fine, 0 ) ) )
+
+[Scarto Kg Periodo AP] =
+    VAR Rif = [Data Riferimento]
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+            || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    RETURN
+        CALCULATE ( [Scarto Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) ) )
+
+[Consumo Kg Periodo AP] =
+    VAR Rif = [Data Riferimento]
+    VAR FiltroData =
+        ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+            || ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+    VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+    VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+    RETURN
+        CALCULATE ( [Consumo Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) ) )
+
+[% Scarto Periodo] =
+    DIVIDE ( [Scarto Kg Periodo], [Consumo Kg Periodo] )
+
+[% Scarto AP] =
+    DIVIDE ( [Scarto Kg Periodo AP], [Consumo Kg Periodo AP] )
+
+-- Negativo = lo scarto è diminuito rispetto allo stesso periodo dell'anno precedente.
+[Delta Scarto (punti %)] =
+    IF ( NOT ISBLANK ( [% Scarto AP] ), [% Scarto Periodo] - [% Scarto AP] )
+
+
+-- ==================== 3. Target ====================
+
+-- Obiettivo di scarto scelto con lo slicer (default 4%).
+[Target Scarto %] =
+    SELECTEDVALUE ( 'Target Scarto'[Target], 0.04 )
+
+-- Chili di scarto in eccesso rispetto al target, calcolati linea per linea (le linee sotto target non compensano le altre).
+[Scarto Oltre Target Kg] =
+    SUMX (
+        VALUES ( Produzione[Linea] ),
+        MAX ( 0, [Scarto Kg] - [Consumo Kg] * [Target Scarto %] )
+    )
+
+[Stato vs Target] =
+    SWITCH (
+        TRUE (),
+        ISBLANK ( [% Scarto] ), BLANK (),
+        [% Scarto] <= [Target Scarto %], "Entro target",
+        [% Scarto] <= [Target Scarto %] * 1.25, "Attenzione",
+        "Fuori target"
+    )
+

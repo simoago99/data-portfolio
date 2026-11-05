@@ -1,0 +1,29 @@
+relationship c1b081af-8ab8-54eb-a50b-804765042b25
+	fromColumn: Fatture.'Codice Cliente'
+	toColumn: Clienti.'Codice Cliente'
+
+relationship 90e43a5e-4ef6-5562-a3da-3069be87cb73
+	fromColumn: Fatture.'Codice Agente'
+	toColumn: Agenti.'Codice Agente'
+
+relationship 6db77794-328d-5c79-850b-0dd5bea38f91
+	fromColumn: Fatture.'Codice Articolo'
+	toColumn: Articoli.'Codice Articolo'
+
+relationship e11ebf84-8553-5bb1-8f85-00313b7260bb
+	fromColumn: Articoli.'Codice Fornitore'
+	toColumn: Fornitori.'Codice Fornitore'
+
+relationship 03ff814f-2084-5537-a273-38fc474c3acc
+	fromColumn: Fatture.'Data Fattura'
+	toColumn: Calendario.Data
+
+relationship b8e3423a-4223-53db-a1ef-2efb4b44596d
+	fromColumn: Scadenze.'Codice Cliente'
+	toColumn: Clienti.'Codice Cliente'
+
+relationship e9733534-a3ca-5b22-af52-83d345c3be42
+	isActive: false
+	fromColumn: Scadenze.'Data Scadenza'
+	toColumn: Calendario.Data
+

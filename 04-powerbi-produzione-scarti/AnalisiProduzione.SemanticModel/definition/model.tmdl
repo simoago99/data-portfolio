@@ -1,0 +1,17 @@
+model Model
+	culture: it-IT
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: it-IT
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["CartellaDati", "Articoli", "Produzione"]
+
+ref table Articoli
+ref table Produzione
+ref table Calendario
+ref table 'Target Scarto'
+ref table _Misure

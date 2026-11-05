@@ -1,0 +1,87 @@
+table Acquisti
+	lineageTag: a1477c29-270a-52fd-a430-b9b347cf5b11
+
+	column 'Data Documento'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b41f23de-1858-53b1-8db5-ee568e4b6aa2
+		summarizeBy: none
+		sourceColumn: Data Documento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Numero Documento'
+		dataType: string
+		lineageTag: a5871b5f-8b97-5b03-99fe-3d697a226c75
+		summarizeBy: none
+		sourceColumn: Numero Documento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Movimento'
+		dataType: string
+		lineageTag: eb8459b5-710b-5866-9cd1-b75dccbdaf6e
+		summarizeBy: none
+		sourceColumn: Tipo Movimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Fornitore'
+		dataType: string
+		isHidden
+		lineageTag: 8cf67218-cdbd-53ec-ae93-92b50a393455
+		summarizeBy: none
+		sourceColumn: Codice Fornitore
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Articolo'
+		dataType: string
+		isHidden
+		lineageTag: 06019c71-9158-5a28-b1e2-a43cb88aa5d9
+		summarizeBy: none
+		sourceColumn: Codice Articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantita
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b211db8-8330-5fe6-a6e2-07f7872cbc2b
+		summarizeBy: sum
+		sourceColumn: Quantita
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Costo Totale'
+		dataType: decimal
+		formatString: € #,0
+		lineageTag: 2eb8cd21-b6a9-536a-9441-1b1557df583e
+		summarizeBy: sum
+		sourceColumn: Costo Totale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Listino Totale'
+		dataType: decimal
+		formatString: € #,0
+		lineageTag: 076fa7af-b18d-5505-96ca-9e3476dbc4a2
+		summarizeBy: sum
+		sourceColumn: Listino Totale
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Acquisti = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "acquisti.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Data Documento", type date}, {"Numero Documento", type text}, {"Tipo Movimento", type text}, {"Codice Fornitore", type text}, {"Codice Articolo", type text}, {"Quantita", Int64.Type}, {"Costo Totale", Currency.Type}, {"Listino Totale", Currency.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

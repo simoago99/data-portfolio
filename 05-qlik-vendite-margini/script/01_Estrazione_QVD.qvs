@@ -1,0 +1,76 @@
+///$tab Leggimi
+/*
+================================================================================
+ LIVELLO 1 – ESTRAZIONE
+ Legge le tabelle sorgente e le salva così come sono in file QVD.
+ L'app di analisi (02_App_Vendite.qvs) legge solo i QVD: il gestionale viene
+ interrogato una volta sola e più app possono riusare gli stessi dati.
+
+ Nel portfolio la sorgente sono file CSV di esempio con dati inventati.
+ In un progetto reale qui c'è una connessione ODBC o REST al gestionale:
+ basta cambiare la SUB EstraiTabella (vedi commento più sotto).
+
+ Connessioni da creare in Qlik Sense (tipo "Cartella"):
+   DatiPortfolio -> cartella con i CSV della cartella /data del repository
+   QVD           -> cartella dove salvare i QVD
+================================================================================
+*/
+
+///$tab Impostazioni
+// I CSV usano il punto come separatore decimale e date ISO (AAAA-MM-GG):
+// nel livello di estrazione si legge il dato nel formato della sorgente.
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET DateFormat='YYYY-MM-DD';
+SET TimestampFormat='YYYY-MM-DD hh:mm:ss';
+
+SET vSorgente = 'lib://DatiPortfolio/';
+SET vQVD      = 'lib://QVD/';
+LET vInizioReload = Num(Now());
+
+///$tab Sub
+// --------------------------------------------------------------------------
+// EstraiTabella: carica una tabella sorgente, la salva in QVD,
+// la elimina dalla memoria e scrive una riga di log.
+//   pNome = nome della tabella / del QVD
+//   pFile = file sorgente
+// Con un gestionale reale il LOAD diventa:
+//   LIB CONNECT TO 'NomeConnessione';
+//   [$(pNome)]: SQL SELECT * FROM $(pFile);
+// --------------------------------------------------------------------------
+SUB EstraiTabella(pNome, pFile)
+    LET vT0 = Now();
+
+    [$(pNome)]:
+    LOAD *
+    FROM [$(vSorgente)$(pFile)]
+    (txt, utf8, embedded labels, delimiter is ',', msq);
+
+    LET vRighe = NoOfRows('$(pNome)');
+    STORE [$(pNome)] INTO [$(vQVD)$(pNome).qvd] (qvd);
+    DROP TABLE [$(pNome)];
+
+    LogEstrazione:
+    LOAD
+        '$(pNome)'               AS Tabella,
+        $(vRighe)                AS Righe,
+        Timestamp('$(vT0)')      AS Inizio,
+        Timestamp(Now())         AS Fine
+    AUTOGENERATE 1;
+
+    TRACE >>> $(pNome): $(vRighe) righe salvate in QVD;
+END SUB
+
+///$tab Estrazione
+CALL EstraiTabella('Clienti',      'clienti.csv');
+CALL EstraiTabella('Agenti',       'agenti.csv');
+CALL EstraiTabella('Articoli',     'articoli.csv');
+CALL EstraiTabella('FattureRighe', 'fatture_righe.csv');
+CALL EstraiTabella('OrdiniRighe',  'ordini_righe.csv');
+CALL EstraiTabella('Budget',       'budget.csv');
+
+///$tab Fine
+// Il log resta nell'app di estrazione e viene salvato anche su QVD
+STORE LogEstrazione INTO [$(vQVD)LogEstrazione.qvd] (qvd);
+LET vDurata = Interval(Now() - $(vInizioReload), 'hh:mm:ss');
+TRACE >>> Estrazione completata in $(vDurata);

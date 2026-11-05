@@ -1,0 +1,84 @@
+table Clienti
+	lineageTag: bd8910ac-0e03-5aa5-a447-2c62f768cabd
+
+	column 'Codice Cliente'
+		dataType: string
+		lineageTag: 09ff418e-fedf-5435-9425-2ca47d20a19d
+		summarizeBy: none
+		sourceColumn: Codice Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ragione Sociale'
+		dataType: string
+		lineageTag: 31c07dc0-0460-534d-82cc-83faadb42492
+		summarizeBy: none
+		sourceColumn: Ragione Sociale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Provincia
+		dataType: string
+		lineageTag: 9ae0fb63-d104-5a8b-96b1-7c9fc786f70b
+		summarizeBy: none
+		sourceColumn: Provincia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Zona
+		dataType: string
+		lineageTag: 5bbf5278-7b2c-567b-9380-615177f65711
+		summarizeBy: none
+		sourceColumn: Zona
+
+		annotation SummarizationSetBy = Automatic
+
+	column Canale
+		dataType: string
+		lineageTag: 935362a6-63c9-5b1e-8743-d587ddb14937
+		summarizeBy: none
+		sourceColumn: Canale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Agente'
+		dataType: string
+		isHidden
+		lineageTag: 01c5c293-50c7-5afc-9567-47fae055b809
+		summarizeBy: none
+		sourceColumn: Codice Agente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Acquisizione'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bf034fe6-2cfb-5b7b-a07a-71ba889fb6e7
+		summarizeBy: none
+		sourceColumn: Data Acquisizione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Giorni Pagamento'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c3faaef-013f-5743-8935-897226c3fa72
+		summarizeBy: none
+		sourceColumn: Giorni Pagamento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clienti = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "clienti.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Codice Cliente", type text}, {"Ragione Sociale", type text}, {"Provincia", type text}, {"Zona", type text}, {"Canale", type text}, {"Codice Agente", type text}, {"Data Acquisizione", type date}, {"Giorni Pagamento", Int64.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,243 @@
+table _Misure
+	lineageTag: a7030770-6636-5802-8789-54455bf64ea4
+
+	/// Ultima data di fatturazione presente nei dati.
+	measure 'Data Riferimento' = CALCULATE ( MAX ( Fatture[Data Fattura] ), REMOVEFILTERS () )
+		formatString: Short Date
+		displayFolder: 0. Base
+		lineageTag: 0ba49d78-7982-5f3d-874f-b4f12937e801
+
+	/// Trattative aperte nel periodo (per data di apertura).
+	measure 'Nr. Trattative' = COUNTROWS ( Trattative )
+		formatString: #,0
+		displayFolder: 1. Pipeline
+		lineageTag: a5532aef-eb17-5ad1-8865-bf3b64c3a9c5
+
+	measure 'Valore Offerto' = SUM ( Trattative[Valore] )
+		formatString: € #,0
+		displayFolder: 1. Pipeline
+		lineageTag: 407e2c2b-ee92-5cec-ad60-d1b677f13e9e
+
+	/// Trattative vinte, datate alla chiusura.
+	measure 'Valore Vinto' = CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] = "Vinta", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+		formatString: € #,0
+		displayFolder: 1. Pipeline
+		lineageTag: 15cec359-eddd-5886-8e9b-0af7b4c0094f
+
+	measure 'Valore Perso' = CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] = "Persa", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+		formatString: € #,0
+		displayFolder: 1. Pipeline
+		lineageTag: 98ab2d03-f6ee-5128-b0b8-1d30e177a11f
+
+	measure 'Nr. Vinte' = CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] = "Vinta", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+		formatString: #,0
+		displayFolder: 1. Pipeline
+		lineageTag: bad53a76-1350-561c-ba33-d4262011c144
+
+	measure 'Nr. Perse' = CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] = "Persa", USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] ) )
+		formatString: #,0
+		displayFolder: 1. Pipeline
+		lineageTag: 60ce9f1d-6854-58d8-b25f-372ec0661924
+
+	/// Valore vinto sul valore delle trattative chiuse (vinte + perse).
+	measure 'Win Rate % (valore)' = DIVIDE ( [Valore Vinto], [Valore Vinto] + [Valore Perso] )
+		formatString: 0.0%
+		displayFolder: 1. Pipeline
+		lineageTag: a056dbbd-e796-5575-ae34-5674f216d97f
+
+	measure 'Win Rate % (numero)' = DIVIDE ( [Nr. Vinte], [Nr. Vinte] + [Nr. Perse] )
+		formatString: 0.0%
+		displayFolder: 1. Pipeline
+		lineageTag: 91646027-2794-554e-aac4-be783fa88b66
+
+	/// Valore delle trattative ancora aperte, indipendentemente dal periodo selezionato.
+	measure 'Pipeline Aperta' = CALCULATE ( SUM ( Trattative[Valore] ), Trattative[Stato] IN { "Aperta", "In negoziazione" }, REMOVEFILTERS ( Calendario ) )
+		formatString: € #,0
+		displayFolder: 1. Pipeline
+		lineageTag: c45298b9-fb1b-50c0-b0d4-9c18e486dee7
+
+	measure 'Nr. Trattative Aperte' = CALCULATE ( COUNTROWS ( Trattative ), Trattative[Stato] IN { "Aperta", "In negoziazione" }, REMOVEFILTERS ( Calendario ) )
+		formatString: #,0
+		displayFolder: 1. Pipeline
+		lineageTag: 5bf2fb3a-3d7f-5d40-85ca-5896cefd6f91
+
+	/// Durata media, in giorni, delle trattative vinte (dall'apertura alla chiusura).
+	measure 'Giorni Medi di Chiusura' =
+			CALCULATE (
+				AVERAGEX ( Trattative, DATEDIFF ( Trattative[Data Apertura], Trattative[Data Chiusura], DAY ) ),
+				Trattative[Stato] = "Vinta",
+				USERELATIONSHIP ( Trattative[Data Chiusura], Calendario[Data] )
+			)
+		formatString: #,0
+		displayFolder: 1. Pipeline
+		lineageTag: e7730efa-3486-5582-b8eb-4206c2fb3783
+
+	measure Ordinato = SUM ( Ordini[Valore Ordine] )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: a3f9086c-b0c8-52bb-9f64-f3f5c432f602
+
+	measure 'Nr. Ordini' = COUNTROWS ( Ordini )
+		formatString: #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 81a4f264-a009-5555-81a5-5ea7b895bff9
+
+	measure 'Valore Medio Ordine' = DIVIDE ( [Ordinato], [Nr. Ordini] )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 86c875c0-c671-5b3d-a4c2-7632e2ccfdeb
+
+	measure Fatturato = SUM ( Fatture[Importo] )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 0c6af2b6-5420-5c96-9177-337415ebde93
+
+	/// Da inizio anno alla fine del periodo (mai oltre la data di riferimento).
+	measure 'Fatturato YTD' =
+			VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), 0 )
+			RETURN
+				CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: d6367dfa-db7b-5eef-8a4e-9db8a416116d
+
+	measure 'Fatturato YTD AP' =
+			VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), -12 )
+			RETURN
+				CALCULATE ( [Fatturato], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 84ba70b8-b0f9-5fff-a4f2-8df79a332840
+
+	measure 'Var % Fatturato YTD' = DIVIDE ( [Fatturato YTD] - [Fatturato YTD AP], [Fatturato YTD AP] )
+		formatString: 0.0%
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 8b806741-de9a-5bb2-a3dd-51d4f4886a2f
+
+	/// Ordinato non ancora fatturato alla fine del periodo: ordini cumulati meno fatture cumulate.
+	measure Backlog =
+			VAR Fine = MIN ( MAX ( Calendario[Data] ), [Data Riferimento] )
+			VAR OrdinatoCumulato = CALCULATE ( [Ordinato], REMOVEFILTERS ( Calendario ), Calendario[Data] <= Fine )
+			VAR FatturatoCumulato = CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Data] <= Fine )
+			RETURN
+				OrdinatoCumulato - FatturatoCumulato
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 33ceda46-4ca1-5e3a-9d58-23573b1a203b
+
+	measure 'Backlog One-off' = CALCULATE ( [Backlog], 'Linee Prodotto'[Tipo Ricavo] = "One-off" )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: 1a9a8963-80de-5fe0-a5fc-4279348d86a7
+
+	measure 'Backlog Ricorrente' = CALCULATE ( [Backlog], 'Linee Prodotto'[Tipo Ricavo] = "Ricorrente" )
+		formatString: € #,0
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: bac9c9a9-f05e-5a3b-9a0a-a4951830c28a
+
+	measure '% Ricorrente su Fatturato' = DIVIDE ( CALCULATE ( [Fatturato], 'Linee Prodotto'[Tipo Ricavo] = "Ricorrente" ), [Fatturato] )
+		formatString: 0.0%
+		displayFolder: 2. Ordinato e fatturato
+		lineageTag: d2a7d8f5-bf6e-5cad-b950-987f7102c9fd
+
+	measure Budget = SUM ( Budget[Budget] )
+		formatString: € #,0
+		displayFolder: 3. Budget e forecast
+		lineageTag: 4e10c22d-9319-5f23-804f-a07be704a7b9
+
+	measure 'Budget YTD' =
+			VAR Fine = EDATE ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ), 0 )
+			RETURN
+				CALCULATE ( [Budget], DATESBETWEEN ( Calendario[Data], DATE ( YEAR ( Fine ), 1, 1 ), Fine ) )
+		formatString: € #,0
+		displayFolder: 3. Budget e forecast
+		lineageTag: 81136c53-18dd-56f6-a594-6f92661fd3d7
+
+	measure '% Raggiungimento Budget YTD' = DIVIDE ( [Fatturato YTD], [Budget YTD] )
+		formatString: 0.0%
+		displayFolder: 3. Budget e forecast
+		lineageTag: fc5d3b08-5ddd-5c07-a562-1415a2b6cb6f
+
+	measure 'Budget Anno' =
+			VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+			RETURN
+				CALCULATE ( [Budget], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno )
+		formatString: € #,0
+		displayFolder: 3. Budget e forecast
+		lineageTag: 951a35cc-e891-5f4d-a1b1-72af5f9c98e5
+
+	/// Stima semplice: fatturato da inizio anno + ordinato ancora da fatturare.
+	measure 'Forecast Fine Anno' = [Fatturato YTD] + [Backlog]
+		formatString: € #,0
+		displayFolder: 3. Budget e forecast
+		lineageTag: 66e17727-37be-5ec1-bdea-03012b13e084
+
+	measure 'Forecast vs Budget %' = DIVIDE ( [Forecast Fine Anno], [Budget Anno] )
+		formatString: 0.0%
+		displayFolder: 3. Budget e forecast
+		lineageTag: ff8c285b-48cd-53d7-a83f-e299126a242d
+
+	measure 'Clienti Fatturati' = DISTINCTCOUNT ( Fatture[Codice Cliente] )
+		formatString: #,0
+		displayFolder: 4. Clienti
+		lineageTag: 614924d0-aae8-5331-b412-17ef20f76ce7
+
+	/// Clienti con prima fattura nell'anno analizzato.
+	measure 'Nuovi Clienti' =
+			VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+			VAR Clienti =
+				ADDCOLUMNS (
+					VALUES ( Clienti[Codice Cliente] ),
+					"@Prima", CALCULATE ( MIN ( Fatture[Data Fattura] ), REMOVEFILTERS ( Calendario ) )
+				)
+			RETURN
+				COUNTROWS ( FILTER ( Clienti, YEAR ( [@Prima] ) = Anno ) )
+		formatString: #,0
+		displayFolder: 4. Clienti
+		lineageTag: 72d478fb-df80-5ef5-a616-bffd4e31f6de
+
+	/// Clienti fatturati l'anno prima e non nell'anno analizzato.
+	measure 'Clienti Persi' =
+			VAR Anno = YEAR ( MIN ( MAX ( Calendario[Data] ), [Data Riferimento] ) )
+			VAR Clienti =
+				ADDCOLUMNS (
+					VALUES ( Clienti[Codice Cliente] ),
+					"@AP", CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno - 1 ),
+					"@Anno", CALCULATE ( [Fatturato], REMOVEFILTERS ( Calendario ), Calendario[Anno] = Anno )
+				)
+			RETURN
+				COUNTROWS ( FILTER ( Clienti, [@AP] > 0 && ISBLANK ( [@Anno] ) ) )
+		formatString: #,0
+		displayFolder: 4. Clienti
+		lineageTag: 03615553-ec99-5670-804f-439a6ef1059f
+
+	/// Mostra Offerto, Ordinato o Fatturato in base alla scelta nello slicer 'Scelta Misura'.
+	measure 'Valore Selezionato' =
+			SWITCH (
+				SELECTEDVALUE ( 'Scelta Misura'[Misura], "Fatturato" ),
+				"Offerto", [Valore Offerto],
+				"Ordinato", [Ordinato],
+				[Fatturato]
+			)
+		formatString: € #,0
+		displayFolder: 5. Selettore misura
+		lineageTag: e4186c0a-a845-5dad-aa6e-9499c707debb
+
+	measure 'Titolo Grafico' = SELECTEDVALUE ( 'Scelta Misura'[Misura], "Fatturato" ) & " per mese"
+		displayFolder: 5. Selettore misura
+		lineageTag: ad3ab43e-ca9f-5da4-afae-65cf01420762
+
+	column Colonna
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71bd95ee-bc05-5ccf-aabc-750f8dc90c0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Colonna]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Misure = calculated
+		mode: import
+		source = ROW ( "Colonna", 0 )

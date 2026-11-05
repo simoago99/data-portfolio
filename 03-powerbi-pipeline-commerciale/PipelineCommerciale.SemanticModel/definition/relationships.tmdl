@@ -1,0 +1,62 @@
+relationship 49ae29cd-ae85-5960-adcc-bec31a16bda6
+	fromColumn: Trattative.'Codice Cliente'
+	toColumn: Clienti.'Codice Cliente'
+
+relationship e6643b4b-f715-5acb-8c9b-5cc4a18023f7
+	fromColumn: Ordini.'Codice Cliente'
+	toColumn: Clienti.'Codice Cliente'
+
+relationship df93a3f6-d4e4-54d6-8401-615f61add31a
+	fromColumn: Fatture.'Codice Cliente'
+	toColumn: Clienti.'Codice Cliente'
+
+relationship 606214a3-c023-5048-975b-349562970451
+	fromColumn: Trattative.'Codice Commerciale'
+	toColumn: Commerciali.'Codice Commerciale'
+
+relationship 8985febd-219e-57d9-9f7f-6aa230ddbb5c
+	fromColumn: Ordini.'Codice Commerciale'
+	toColumn: Commerciali.'Codice Commerciale'
+
+relationship 9bd6f56a-d1e3-5fd6-88a3-307b8e4aa1d5
+	fromColumn: Trattative.'Linea Prodotto'
+	toColumn: 'Linee Prodotto'.'Linea Prodotto'
+
+relationship 5dc4e1dd-8fe9-5cf0-b29f-ec17d19b737e
+	fromColumn: Ordini.'Linea Prodotto'
+	toColumn: 'Linee Prodotto'.'Linea Prodotto'
+
+relationship b51be901-8096-5925-b94c-64b519ffc328
+	fromColumn: Fatture.'Linea Prodotto'
+	toColumn: 'Linee Prodotto'.'Linea Prodotto'
+
+relationship f53c3978-dc8e-5d06-a05c-3fe139f00e1e
+	fromColumn: Budget.'Linea Prodotto'
+	toColumn: 'Linee Prodotto'.'Linea Prodotto'
+
+relationship 7208fcee-b734-5be2-8971-feec89a784da
+	fromColumn: Trattative.'Data Apertura'
+	toColumn: Calendario.Data
+
+relationship a5375066-0a16-5997-8150-63059dd94db6
+	isActive: false
+	fromColumn: Trattative.'Data Chiusura'
+	toColumn: Calendario.Data
+
+relationship bd04b870-b11f-5f04-96ba-88e8edbcbe69
+	fromColumn: Ordini.'Data Ordine'
+	toColumn: Calendario.Data
+
+relationship 16030f23-a20a-5845-b0a3-0ce768758c8d
+	isActive: false
+	fromColumn: Ordini.'Data Consegna Prevista'
+	toColumn: Calendario.Data
+
+relationship 5722fdc3-3137-5095-9433-48f45e3cbf8a
+	fromColumn: Fatture.'Data Fattura'
+	toColumn: Calendario.Data
+
+relationship 49a93cc7-de07-50d7-8c3f-eb8f739e66ee
+	fromColumn: Budget.'Data Mese'
+	toColumn: Calendario.Data
+

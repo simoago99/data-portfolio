@@ -1,0 +1,66 @@
+table Articoli
+	lineageTag: 0da79d11-7df2-56ba-941f-74835689a72a
+
+	column 'Codice Articolo'
+		dataType: string
+		lineageTag: 57dc400a-ce56-5290-bb07-9fb98db350dd
+		summarizeBy: none
+		sourceColumn: Codice Articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 16e6d9d6-7b6b-5af0-b94b-1f31cd09753b
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Famiglia
+		dataType: string
+		lineageTag: 9aaf0b1f-a5cb-5c76-a621-1870de0edbdb
+		summarizeBy: none
+		sourceColumn: Famiglia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Fornitore'
+		dataType: string
+		isHidden
+		lineageTag: e67df790-83ae-5bb3-ace8-66ffd2b2ec8b
+		summarizeBy: none
+		sourceColumn: Codice Fornitore
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prezzo Listino'
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: bf50d098-1c05-5ddb-9621-cd47f28e0fc8
+		summarizeBy: none
+		sourceColumn: Prezzo Listino
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Costo Standard'
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: ccc91ff1-4abc-564f-9368-965207eca390
+		summarizeBy: none
+		sourceColumn: Costo Standard
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Articoli = m
+		mode: import
+		source =
+				let
+				    Origine = Csv.Document(File.Contents(CartellaDati & "articoli.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Intestazioni = Table.PromoteHeaders(Origine, [PromoteAllScalars = true]),
+				    VuotiInNull = Table.ReplaceValue(Intestazioni, "", null, Replacer.ReplaceValue, Table.ColumnNames(Intestazioni)),
+				    Tipi = Table.TransformColumnTypes(VuotiInNull, {{"Codice Articolo", type text}, {"Descrizione", type text}, {"Famiglia", type text}, {"Codice Fornitore", type text}, {"Prezzo Listino", Currency.Type}, {"Costo Standard", Currency.Type}}, "en-US")
+				in
+				    Tipi
+
+	annotation PBI_ResultType = Table

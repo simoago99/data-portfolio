@@ -1,0 +1,8 @@
+relationship bb1d5ea4-d7e9-5b1d-91ce-2e1ab1b42d6f
+	fromColumn: Produzione.'Codice Articolo'
+	toColumn: Articoli.'Codice Articolo'
+
+relationship 900b3359-2558-5621-88c3-ae68c74de8ac
+	fromColumn: Produzione.Data
+	toColumn: Calendario.Data
+

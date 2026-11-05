@@ -1,0 +1,197 @@
+table _Misure
+	lineageTag: 980c8bd9-7227-5b70-92ed-da8c3ac74a84
+
+	measure 'Data Riferimento' = CALCULATE ( MAX ( Produzione[Data] ), REMOVEFILTERS () )
+		formatString: Short Date
+		displayFolder: 0. Base
+		lineageTag: 0ba49d78-7982-5f3d-874f-b4f12937e801
+
+	measure 'Ore Lavorate' = SUM ( Produzione[Ore Lavorate] )
+		formatString: #,0.0
+		displayFolder: 0. Base
+		lineageTag: f6a6b4a9-220f-5bf8-b99e-4f205f5c2953
+
+	/// Materia prima caricata in macchina.
+	measure 'Consumo Kg' = SUM ( Produzione[Consumo Kg] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: b378d789-29c0-5357-94e2-2a6f3aa406fe
+
+	/// Prodotto finito conforme.
+	measure 'Produzione Kg' = SUM ( Produzione[Produzione Kg] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: c07dc0bb-4526-58f1-94ba-45eefe8e9a31
+
+	measure 'Scarto Kg' = SUM ( Produzione[Scarto Kg] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 60a5bd81-f38d-5c94-b6fc-16ecd1cf5de0
+
+	/// Bordi tagliati in linea (recuperabili).
+	measure 'Rifili Kg' = SUM ( Produzione[Rifili Kg] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: e58130c2-f885-58ff-b4cb-786c62b93586
+
+	measure 'Metri Quadri' = SUM ( Produzione[Metri Quadri] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 7786bf13-9c75-57a9-9347-3ac1dbe06184
+
+	measure 'Bobine Prodotte' = SUM ( Produzione[Bobine OK] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: 6543116e-f1bc-5988-bfee-d6da6dd613f4
+
+	measure 'Nr. Ordini di Produzione' = DISTINCTCOUNT ( Produzione[Ordine Produzione] )
+		formatString: #,0
+		displayFolder: 0. Base
+		lineageTag: b6b0cb00-6240-5079-96a2-a660dfdadbdd
+
+	/// Scarto sul consumo di materia prima.
+	measure '% Scarto' = DIVIDE ( [Scarto Kg], [Consumo Kg] )
+		formatString: 0.00%
+		displayFolder: 1. KPI di reparto
+		lineageTag: a5b80f3d-cb6f-588a-959f-ebb2a6a692bc
+
+	measure '% Rifili' = DIVIDE ( [Rifili Kg], [Consumo Kg] )
+		formatString: 0.00%
+		displayFolder: 1. KPI di reparto
+		lineageTag: 975d9f30-1311-5f02-a7f2-7ac43bba5358
+
+	/// Prodotto conforme sul consumo: la parte di materia prima che diventa prodotto vendibile.
+	measure '% Resa' = DIVIDE ( [Produzione Kg], [Consumo Kg] )
+		formatString: 0.00%
+		displayFolder: 1. KPI di reparto
+		lineageTag: b202acf0-86b0-51c3-a70f-b693b643bb2d
+
+	measure 'Consumo kg/h' = DIVIDE ( [Consumo Kg], [Ore Lavorate] )
+		formatString: #,0.0
+		displayFolder: 1. KPI di reparto
+		lineageTag: 11a7815d-0aad-5f66-9d4d-f03420ad95ae
+
+	measure 'Produttività Netta kg/h' = DIVIDE ( [Produzione Kg], [Ore Lavorate] )
+		formatString: #,0.0
+		displayFolder: 1. KPI di reparto
+		lineageTag: 7fa29bc1-1599-594d-aadc-179ad13ef77d
+
+	measure 'Produttività m²/h' = DIVIDE ( [Metri Quadri], [Ore Lavorate] )
+		formatString: #,0
+		displayFolder: 1. KPI di reparto
+		lineageTag: 3784e345-7965-59fb-8914-1d9ea5369566
+
+	measure 'Kg Medi per Bobina' = DIVIDE ( [Produzione Kg], [Bobine Prodotte] )
+		formatString: #,0.0
+		displayFolder: 1. KPI di reparto
+		lineageTag: 5e77705a-c487-5b73-9976-c88277d159da
+
+	measure 'Scarto Kg Periodo' =
+			VAR Rif = [Data Riferimento]
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+					|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			RETURN
+				CALCULATE ( [Scarto Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, 0 ), EDATE ( Fine, 0 ) ) )
+		formatString: #,0
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: cc332e2f-8b2a-5819-a625-e3c93cd41c82
+
+	measure 'Consumo Kg Periodo' =
+			VAR Rif = [Data Riferimento]
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+					|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			RETURN
+				CALCULATE ( [Consumo Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, 0 ), EDATE ( Fine, 0 ) ) )
+		formatString: #,0
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: 49da3b3a-0e1c-5ec4-909c-72e9c999e7a9
+
+	measure 'Scarto Kg Periodo AP' =
+			VAR Rif = [Data Riferimento]
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+					|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			RETURN
+				CALCULATE ( [Scarto Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) ) )
+		formatString: #,0
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: d2aa300c-52c5-5c5e-8099-b361e4911c19
+
+	measure 'Consumo Kg Periodo AP' =
+			VAR Rif = [Data Riferimento]
+			VAR FiltroData =
+				ISFILTERED ( Calendario[Data] ) || ISFILTERED ( Calendario[Anno] ) || ISFILTERED ( Calendario[Mese] )
+					|| ISFILTERED ( Calendario[Anno Mese] ) || ISFILTERED ( Calendario[Settimana] )
+			VAR Inizio = IF ( FiltroData, MIN ( Calendario[Data] ), DATE ( YEAR ( Rif ), 1, 1 ) )
+			VAR Fine = IF ( FiltroData, MIN ( MAX ( Calendario[Data] ), Rif ), Rif )
+			RETURN
+				CALCULATE ( [Consumo Kg], DATESBETWEEN ( Calendario[Data], EDATE ( Inizio, -12 ), EDATE ( Fine, -12 ) ) )
+		formatString: #,0
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: 14d6c0cb-71a0-5f13-951f-5366d503c923
+
+	measure '% Scarto Periodo' = DIVIDE ( [Scarto Kg Periodo], [Consumo Kg Periodo] )
+		formatString: 0.00%
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: 05397e0e-aed1-5505-8666-de5b2d9d7cd8
+
+	measure '% Scarto AP' = DIVIDE ( [Scarto Kg Periodo AP], [Consumo Kg Periodo AP] )
+		formatString: 0.00%
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: f2deb377-a89b-5bc6-8ae4-43e662170610
+
+	/// Negativo = lo scarto è diminuito rispetto allo stesso periodo dell'anno precedente.
+	measure 'Delta Scarto (punti %)' = IF ( NOT ISBLANK ( [% Scarto AP] ), [% Scarto Periodo] - [% Scarto AP] )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: 2. Confronto anno precedente
+		lineageTag: f8fa1526-7230-53b7-b3f6-507b65dfd1ec
+
+	/// Obiettivo di scarto scelto con lo slicer (default 4%).
+	measure 'Target Scarto %' = SELECTEDVALUE ( 'Target Scarto'[Target], 0.04 )
+		formatString: 0.00%
+		displayFolder: 3. Target
+		lineageTag: 66880adc-51a1-595e-a4f6-f6882ec237d3
+
+	/// Chili di scarto in eccesso rispetto al target, calcolati linea per linea (le linee sotto target non compensano le altre).
+	measure 'Scarto Oltre Target Kg' =
+			SUMX (
+				VALUES ( Produzione[Linea] ),
+				MAX ( 0, [Scarto Kg] - [Consumo Kg] * [Target Scarto %] )
+			)
+		formatString: #,0
+		displayFolder: 3. Target
+		lineageTag: d46e7066-db4e-5a1c-96ab-3de04b6996bd
+
+	measure 'Stato vs Target' =
+			SWITCH (
+				TRUE (),
+				ISBLANK ( [% Scarto] ), BLANK (),
+				[% Scarto] <= [Target Scarto %], "Entro target",
+				[% Scarto] <= [Target Scarto %] * 1.25, "Attenzione",
+				"Fuori target"
+			)
+		displayFolder: 3. Target
+		lineageTag: 929c4ded-a4cf-5dc5-bd85-b35935713b57
+
+	column Colonna
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 71bd95ee-bc05-5ccf-aabc-750f8dc90c0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Colonna]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Misure = calculated
+		mode: import
+		source = ROW ( "Colonna", 0 )

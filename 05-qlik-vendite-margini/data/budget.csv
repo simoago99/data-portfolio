@@ -1,0 +1,433 @@
+Anno,Mese,Famiglia,Budget
+2024,1,Bevande,12900.00
+2024,1,Caffè,31200.00
+2024,1,Conserve,15400.00
+2024,1,Detergenza,68500.00
+2024,1,Dolci e snack,34400.00
+2024,1,Latticini,17900.00
+2024,1,Liquori,49400.00
+2024,1,Monouso,24800.00
+2024,1,Olio e condimenti,23900.00
+2024,1,Panetteria,2700.00
+2024,1,Pasta e farine,28000.00
+2024,1,Surgelati,40400.00
+2024,2,Bevande,4600.00
+2024,2,Caffè,29600.00
+2024,2,Conserve,12300.00
+2024,2,Detergenza,52200.00
+2024,2,Dolci e snack,28900.00
+2024,2,Latticini,15600.00
+2024,2,Liquori,42500.00
+2024,2,Monouso,20200.00
+2024,2,Olio e condimenti,16500.00
+2024,2,Panetteria,2300.00
+2024,2,Pasta e farine,24000.00
+2024,2,Surgelati,35600.00
+2024,3,Bevande,9500.00
+2024,3,Caffè,36300.00
+2024,3,Conserve,15800.00
+2024,3,Detergenza,69900.00
+2024,3,Dolci e snack,30900.00
+2024,3,Latticini,13100.00
+2024,3,Liquori,43500.00
+2024,3,Monouso,27200.00
+2024,3,Olio e condimenti,21600.00
+2024,3,Panetteria,3200.00
+2024,3,Pasta e farine,27300.00
+2024,3,Surgelati,44100.00
+2024,4,Bevande,7700.00
+2024,4,Caffè,30800.00
+2024,4,Conserve,10400.00
+2024,4,Detergenza,55200.00
+2024,4,Dolci e snack,25600.00
+2024,4,Latticini,14000.00
+2024,4,Liquori,40000.00
+2024,4,Monouso,29200.00
+2024,4,Olio e condimenti,18200.00
+2024,4,Panetteria,2700.00
+2024,4,Pasta e farine,21300.00
+2024,4,Surgelati,34700.00
+2024,5,Bevande,16500.00
+2024,5,Caffè,44800.00
+2024,5,Conserve,22400.00
+2024,5,Detergenza,86500.00
+2024,5,Dolci e snack,44400.00
+2024,5,Latticini,20500.00
+2024,5,Liquori,54000.00
+2024,5,Monouso,39700.00
+2024,5,Olio e condimenti,25700.00
+2024,5,Panetteria,4600.00
+2024,5,Pasta e farine,40200.00
+2024,5,Surgelati,62400.00
+2024,6,Bevande,11400.00
+2024,6,Caffè,45400.00
+2024,6,Conserve,18600.00
+2024,6,Detergenza,76400.00
+2024,6,Dolci e snack,36700.00
+2024,6,Latticini,16000.00
+2024,6,Liquori,54600.00
+2024,6,Monouso,31400.00
+2024,6,Olio e condimenti,24100.00
+2024,6,Panetteria,2600.00
+2024,6,Pasta e farine,34800.00
+2024,6,Surgelati,62300.00
+2024,7,Bevande,14000.00
+2024,7,Caffè,35300.00
+2024,7,Conserve,20000.00
+2024,7,Detergenza,72600.00
+2024,7,Dolci e snack,44300.00
+2024,7,Latticini,24000.00
+2024,7,Liquori,55000.00
+2024,7,Monouso,35300.00
+2024,7,Olio e condimenti,22500.00
+2024,7,Panetteria,4800.00
+2024,7,Pasta e farine,34000.00
+2024,7,Surgelati,50200.00
+2024,8,Bevande,4400.00
+2024,8,Caffè,20500.00
+2024,8,Conserve,8800.00
+2024,8,Detergenza,37600.00
+2024,8,Dolci e snack,18300.00
+2024,8,Latticini,11000.00
+2024,8,Liquori,24900.00
+2024,8,Monouso,14400.00
+2024,8,Olio e condimenti,14800.00
+2024,8,Panetteria,2900.00
+2024,8,Pasta e farine,15400.00
+2024,8,Surgelati,31000.00
+2024,9,Bevande,5200.00
+2024,9,Caffè,28500.00
+2024,9,Conserve,13000.00
+2024,9,Detergenza,58400.00
+2024,9,Dolci e snack,32600.00
+2024,9,Latticini,17700.00
+2024,9,Liquori,36700.00
+2024,9,Monouso,24300.00
+2024,9,Olio e condimenti,16700.00
+2024,9,Panetteria,2200.00
+2024,9,Pasta e farine,23500.00
+2024,9,Surgelati,38900.00
+2024,10,Bevande,10000.00
+2024,10,Caffè,39300.00
+2024,10,Conserve,17500.00
+2024,10,Detergenza,61100.00
+2024,10,Dolci e snack,39400.00
+2024,10,Latticini,20500.00
+2024,10,Liquori,53100.00
+2024,10,Monouso,31800.00
+2024,10,Olio e condimenti,21300.00
+2024,10,Panetteria,4000.00
+2024,10,Pasta e farine,32500.00
+2024,10,Surgelati,57800.00
+2024,11,Bevande,11000.00
+2024,11,Caffè,34700.00
+2024,11,Conserve,16500.00
+2024,11,Detergenza,66000.00
+2024,11,Dolci e snack,43700.00
+2024,11,Latticini,19000.00
+2024,11,Liquori,52700.00
+2024,11,Monouso,29800.00
+2024,11,Olio e condimenti,22800.00
+2024,11,Panetteria,4600.00
+2024,11,Pasta e farine,31100.00
+2024,11,Surgelati,56600.00
+2024,12,Bevande,12000.00
+2024,12,Caffè,35000.00
+2024,12,Conserve,13000.00
+2024,12,Detergenza,74800.00
+2024,12,Dolci e snack,33800.00
+2024,12,Latticini,17600.00
+2024,12,Liquori,54000.00
+2024,12,Monouso,27100.00
+2024,12,Olio e condimenti,26600.00
+2024,12,Panetteria,5100.00
+2024,12,Pasta e farine,35200.00
+2024,12,Surgelati,58000.00
+2025,1,Bevande,10800.00
+2025,1,Caffè,41700.00
+2025,1,Conserve,14900.00
+2025,1,Detergenza,78500.00
+2025,1,Dolci e snack,49600.00
+2025,1,Latticini,23600.00
+2025,1,Liquori,60200.00
+2025,1,Monouso,32300.00
+2025,1,Olio e condimenti,33200.00
+2025,1,Panetteria,5900.00
+2025,1,Pasta e farine,35200.00
+2025,1,Surgelati,49600.00
+2025,2,Bevande,11000.00
+2025,2,Caffè,36500.00
+2025,2,Conserve,14300.00
+2025,2,Detergenza,77000.00
+2025,2,Dolci e snack,44700.00
+2025,2,Latticini,18900.00
+2025,2,Liquori,53400.00
+2025,2,Monouso,29400.00
+2025,2,Olio e condimenti,22400.00
+2025,2,Panetteria,3700.00
+2025,2,Pasta e farine,33000.00
+2025,2,Surgelati,55500.00
+2025,3,Bevande,10600.00
+2025,3,Caffè,38400.00
+2025,3,Conserve,12200.00
+2025,3,Detergenza,60100.00
+2025,3,Dolci e snack,39800.00
+2025,3,Latticini,22700.00
+2025,3,Liquori,56100.00
+2025,3,Monouso,33100.00
+2025,3,Olio e condimenti,26100.00
+2025,3,Panetteria,4100.00
+2025,3,Pasta e farine,38600.00
+2025,3,Surgelati,56500.00
+2025,4,Bevande,11700.00
+2025,4,Caffè,41100.00
+2025,4,Conserve,15300.00
+2025,4,Detergenza,78600.00
+2025,4,Dolci e snack,47200.00
+2025,4,Latticini,15900.00
+2025,4,Liquori,49000.00
+2025,4,Monouso,31600.00
+2025,4,Olio e condimenti,32700.00
+2025,4,Panetteria,5400.00
+2025,4,Pasta e farine,38200.00
+2025,4,Surgelati,45100.00
+2025,5,Bevande,19300.00
+2025,5,Caffè,41200.00
+2025,5,Conserve,18500.00
+2025,5,Detergenza,81600.00
+2025,5,Dolci e snack,49600.00
+2025,5,Latticini,24800.00
+2025,5,Liquori,64700.00
+2025,5,Monouso,45500.00
+2025,5,Olio e condimenti,25700.00
+2025,5,Panetteria,6700.00
+2025,5,Pasta e farine,35600.00
+2025,5,Surgelati,65800.00
+2025,6,Bevande,16800.00
+2025,6,Caffè,59500.00
+2025,6,Conserve,27500.00
+2025,6,Detergenza,121200.00
+2025,6,Dolci e snack,60900.00
+2025,6,Latticini,36500.00
+2025,6,Liquori,84100.00
+2025,6,Monouso,46100.00
+2025,6,Olio e condimenti,32800.00
+2025,6,Panetteria,8100.00
+2025,6,Pasta e farine,55100.00
+2025,6,Surgelati,79900.00
+2025,7,Bevande,13200.00
+2025,7,Caffè,55500.00
+2025,7,Conserve,26500.00
+2025,7,Detergenza,119100.00
+2025,7,Dolci e snack,71500.00
+2025,7,Latticini,40900.00
+2025,7,Liquori,83400.00
+2025,7,Monouso,61800.00
+2025,7,Olio e condimenti,41900.00
+2025,7,Panetteria,5300.00
+2025,7,Pasta e farine,55600.00
+2025,7,Surgelati,76000.00
+2025,8,Bevande,8100.00
+2025,8,Caffè,33000.00
+2025,8,Conserve,11100.00
+2025,8,Detergenza,53600.00
+2025,8,Dolci e snack,32100.00
+2025,8,Latticini,14700.00
+2025,8,Liquori,37500.00
+2025,8,Monouso,19700.00
+2025,8,Olio e condimenti,13700.00
+2025,8,Panetteria,2200.00
+2025,8,Pasta e farine,17800.00
+2025,8,Surgelati,40300.00
+2025,9,Bevande,12900.00
+2025,9,Caffè,43500.00
+2025,9,Conserve,14300.00
+2025,9,Detergenza,73100.00
+2025,9,Dolci e snack,43500.00
+2025,9,Latticini,22400.00
+2025,9,Liquori,60200.00
+2025,9,Monouso,39100.00
+2025,9,Olio e condimenti,25700.00
+2025,9,Panetteria,3500.00
+2025,9,Pasta e farine,33900.00
+2025,9,Surgelati,61600.00
+2025,10,Bevande,8900.00
+2025,10,Caffè,38400.00
+2025,10,Conserve,18200.00
+2025,10,Detergenza,106900.00
+2025,10,Dolci e snack,46000.00
+2025,10,Latticini,23800.00
+2025,10,Liquori,59700.00
+2025,10,Monouso,44300.00
+2025,10,Olio e condimenti,34100.00
+2025,10,Panetteria,3500.00
+2025,10,Pasta e farine,35500.00
+2025,10,Surgelati,55300.00
+2025,11,Bevande,17800.00
+2025,11,Caffè,49900.00
+2025,11,Conserve,22300.00
+2025,11,Detergenza,92700.00
+2025,11,Dolci e snack,44800.00
+2025,11,Latticini,30700.00
+2025,11,Liquori,79500.00
+2025,11,Monouso,46400.00
+2025,11,Olio e condimenti,36300.00
+2025,11,Panetteria,4200.00
+2025,11,Pasta e farine,44100.00
+2025,11,Surgelati,70500.00
+2025,12,Bevande,14500.00
+2025,12,Caffè,45400.00
+2025,12,Conserve,24100.00
+2025,12,Detergenza,111900.00
+2025,12,Dolci e snack,55700.00
+2025,12,Latticini,23100.00
+2025,12,Liquori,77600.00
+2025,12,Monouso,35000.00
+2025,12,Olio e condimenti,36700.00
+2025,12,Panetteria,5300.00
+2025,12,Pasta e farine,45300.00
+2025,12,Surgelati,74200.00
+2026,1,Bevande,18800.00
+2026,1,Caffè,50400.00
+2026,1,Conserve,15400.00
+2026,1,Detergenza,99800.00
+2026,1,Dolci e snack,49400.00
+2026,1,Latticini,27700.00
+2026,1,Liquori,70400.00
+2026,1,Monouso,43700.00
+2026,1,Olio e condimenti,38900.00
+2026,1,Panetteria,3500.00
+2026,1,Pasta e farine,48100.00
+2026,1,Surgelati,63300.00
+2026,2,Bevande,18200.00
+2026,2,Caffè,38700.00
+2026,2,Conserve,17500.00
+2026,2,Detergenza,90900.00
+2026,2,Dolci e snack,49500.00
+2026,2,Latticini,26300.00
+2026,2,Liquori,60900.00
+2026,2,Monouso,35300.00
+2026,2,Olio e condimenti,27200.00
+2026,2,Panetteria,5300.00
+2026,2,Pasta e farine,44800.00
+2026,2,Surgelati,60600.00
+2026,3,Bevande,16000.00
+2026,3,Caffè,51700.00
+2026,3,Conserve,25800.00
+2026,3,Detergenza,94800.00
+2026,3,Dolci e snack,66400.00
+2026,3,Latticini,28900.00
+2026,3,Liquori,71300.00
+2026,3,Monouso,43100.00
+2026,3,Olio e condimenti,27900.00
+2026,3,Panetteria,5300.00
+2026,3,Pasta e farine,49700.00
+2026,3,Surgelati,77000.00
+2026,4,Bevande,16000.00
+2026,4,Caffè,57200.00
+2026,4,Conserve,22400.00
+2026,4,Detergenza,101200.00
+2026,4,Dolci e snack,53400.00
+2026,4,Latticini,27200.00
+2026,4,Liquori,68500.00
+2026,4,Monouso,46500.00
+2026,4,Olio e condimenti,28600.00
+2026,4,Panetteria,5800.00
+2026,4,Pasta e farine,46300.00
+2026,4,Surgelati,70000.00
+2026,5,Bevande,22900.00
+2026,5,Caffè,69300.00
+2026,5,Conserve,26300.00
+2026,5,Detergenza,124800.00
+2026,5,Dolci e snack,68800.00
+2026,5,Latticini,35500.00
+2026,5,Liquori,97800.00
+2026,5,Monouso,51200.00
+2026,5,Olio e condimenti,45400.00
+2026,5,Panetteria,5300.00
+2026,5,Pasta e farine,60100.00
+2026,5,Surgelati,100200.00
+2026,6,Bevande,18000.00
+2026,6,Caffè,64400.00
+2026,6,Conserve,34000.00
+2026,6,Detergenza,132400.00
+2026,6,Dolci e snack,71600.00
+2026,6,Latticini,34100.00
+2026,6,Liquori,101700.00
+2026,6,Monouso,53200.00
+2026,6,Olio e condimenti,50300.00
+2026,6,Panetteria,7500.00
+2026,6,Pasta e farine,59700.00
+2026,6,Surgelati,104100.00
+2026,7,Bevande,20100.00
+2026,7,Caffè,79500.00
+2026,7,Conserve,29800.00
+2026,7,Detergenza,130600.00
+2026,7,Dolci e snack,75300.00
+2026,7,Latticini,36600.00
+2026,7,Liquori,102900.00
+2026,7,Monouso,59000.00
+2026,7,Olio e condimenti,52800.00
+2026,7,Panetteria,8700.00
+2026,7,Pasta e farine,74700.00
+2026,7,Surgelati,90700.00
+2026,8,Bevande,8300.00
+2026,8,Caffè,26700.00
+2026,8,Conserve,14300.00
+2026,8,Detergenza,71100.00
+2026,8,Dolci e snack,34900.00
+2026,8,Latticini,21500.00
+2026,8,Liquori,40400.00
+2026,8,Monouso,25800.00
+2026,8,Olio e condimenti,21100.00
+2026,8,Panetteria,2600.00
+2026,8,Pasta e farine,26000.00
+2026,8,Surgelati,41000.00
+2026,9,Bevande,13500.00
+2026,9,Caffè,55500.00
+2026,9,Conserve,25500.00
+2026,9,Detergenza,101600.00
+2026,9,Dolci e snack,57700.00
+2026,9,Latticini,28200.00
+2026,9,Liquori,73900.00
+2026,9,Monouso,34900.00
+2026,9,Olio e condimenti,32600.00
+2026,9,Panetteria,4600.00
+2026,9,Pasta e farine,42300.00
+2026,9,Surgelati,97000.00
+2026,10,Bevande,8600.00
+2026,10,Caffè,37500.00
+2026,10,Conserve,18500.00
+2026,10,Detergenza,107000.00
+2026,10,Dolci e snack,45700.00
+2026,10,Latticini,27300.00
+2026,10,Liquori,63900.00
+2026,10,Monouso,43800.00
+2026,10,Olio e condimenti,33200.00
+2026,10,Panetteria,3700.00
+2026,10,Pasta e farine,40800.00
+2026,10,Surgelati,60300.00
+2026,11,Bevande,17700.00
+2026,11,Caffè,51300.00
+2026,11,Conserve,21900.00
+2026,11,Detergenza,104700.00
+2026,11,Dolci e snack,51600.00
+2026,11,Latticini,31100.00
+2026,11,Liquori,76200.00
+2026,11,Monouso,48200.00
+2026,11,Olio e condimenti,35600.00
+2026,11,Panetteria,4700.00
+2026,11,Pasta e farine,47700.00
+2026,11,Surgelati,75200.00
+2026,12,Bevande,14200.00
+2026,12,Caffè,51800.00
+2026,12,Conserve,24200.00
+2026,12,Detergenza,119300.00
+2026,12,Dolci e snack,62300.00
+2026,12,Latticini,24600.00
+2026,12,Liquori,78500.00
+2026,12,Monouso,37500.00
+2026,12,Olio e condimenti,42400.00
+2026,12,Panetteria,5700.00
+2026,12,Pasta e farine,51400.00
+2026,12,Surgelati,85500.00
